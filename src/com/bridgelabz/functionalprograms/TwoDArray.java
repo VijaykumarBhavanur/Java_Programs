@@ -40,5 +40,4 @@ public class TwoDArray {
 			
 			printTwoDArray(a);
 	}
-
 }
