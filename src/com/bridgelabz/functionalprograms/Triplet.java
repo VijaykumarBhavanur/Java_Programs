@@ -1,6 +1,6 @@
 package com.bridgelabz.functionalprograms;
 
-public class StopWatch {
+public class Triplet {
 
 	public static void main(String[] args) {
 	    int a[]= {-2,3,-1,5,4,-9,8,-6,11,-3,1,7,14,45,-15,-30};
