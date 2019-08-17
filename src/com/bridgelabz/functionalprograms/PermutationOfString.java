@@ -27,7 +27,7 @@ public class PermutationOfString
 		String string=sc.next();
 		char [] ch=string.toCharArray();
 		int i=0,j=0;
-		for (int j2 = 0; j2 < ch.length; j2++) 
+		for (int k = 0; k < ch.length; k++) 
 		{
 						if(i!=j)
 						{
