@@ -24,7 +24,7 @@ public class TestClass {
 		 * System.out.println(hr+"hr:"+min+"min:"+sec+"sec");
 		 */
 		
-		
+		System.out.println("did some changes!!!!!!!!!");
 		char array[][]= {{'1','0','1'},{'0','0','1'},{'1','0','1'}};
 		
 		int row=0;
