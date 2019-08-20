@@ -20,7 +20,7 @@ public class PrimeFactors {
 	
 	public static void main(String[] args) 
 	{
-		int n=25;
+		int n=12;
 		int i=2;
 		ArrayList arrayList=new ArrayList();
 		
