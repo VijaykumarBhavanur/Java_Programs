@@ -17,6 +17,6 @@ public class CommonUtility {
 		return digCount;
 	}
 	
-
+	
 
 }
