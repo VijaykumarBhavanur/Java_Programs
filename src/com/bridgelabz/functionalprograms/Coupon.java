@@ -31,13 +31,15 @@ public class Coupon
 			System.out.println("Enter number of distinct coupon numbers needed: ");
 			int range=scanner.nextInt();
 			Random r=new Random();
+			
 			int distinct[]=new int[range];
 			int randomCount=0;
 			
 			while(true)
 			{
 				randomCount++;
-				int number=r.nextInt(10);
+				
+				int number=r.nextInt(1000);
 				distinct=addDistinct(distinct, number);
 				if(distinct[distinct.length-1]!=0)
 					break;

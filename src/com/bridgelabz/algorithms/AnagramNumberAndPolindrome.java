@@ -17,6 +17,18 @@ public class AnagramNumberAndPolindrome {
 		return true;
 		
 	}
+	
+	static boolean isPalindrome(String s1)
+	{
+		String s2="";
+		for (int i = 0; i < s1.length(); i++) 
+		{
+				s2=s1.charAt(i)+s2;
+		}
+		return s1.equals(s2);
+	}
+	
+	
 	private static boolean isAnagram(String str1, String str2)
 	{
 				if(str1.length()!=str2.length())
@@ -62,34 +74,35 @@ public class AnagramNumberAndPolindrome {
 	
 	public static void main(String[] args) 
 	{
-		ArrayList al=new ArrayList();
-		for (int i = 2; i <1000; i++)
-		{
-			 boolean prime=isPrime(i);
-			 if(prime)
-				 al.add(i);
+		
+		ArrayList al = new ArrayList();
+		for (int i = 2; i < 1000; i++) {
+			//boolean prime = isPrime(i);
+			if (isPrime(i) && isPalindrome(String.valueOf(i)))
+				al.add(i);
 		}
-		
-		System.out.println("Prime numbers within 1000 are: ");
-	
+
+		System.out.println("Prime and polindrome numbers within 1000 are: ");
+
 		System.out.println(al);
+
+		//System.out.println("Prime and polindrome numbers are: ");
 		
-	
-		System.out.println("Prime and Anagram numbers within 1000 are: ");
 		
-		for (int i = 0; i < al.size(); i++)
-		{
-			boolean res=false;
-			for (int j = 2; j <= 1000; j++) 
-			{
-				if(j!=(int)al.get(i))
-					res	= isAnagram(al.get(i).toString(), String.valueOf(j));
+		System.out.println("Prime and polindrome  and Anagram numbers within 1000 are: ");
+
+		for (int i = 0; i < al.size(); i++) {
+			boolean res = false;
+			for (int j = 2; j <= 1000; j++) {
+				if (j != (int) al.get(i))
+					res = isAnagram(al.get(i).toString(), String.valueOf(j));
 
 				if (res)
-					System.out.println(al.get(i)+"-->"+j);
+					System.out.println(al.get(i) + "-->" + j);
 			}
-		}	
-		
+		}
+		 
+		//System.out.println(isPalindrome("medam"));
 	}
 
 }
