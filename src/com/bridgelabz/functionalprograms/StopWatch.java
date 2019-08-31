@@ -16,7 +16,6 @@ public class StopWatch
 		int afterStopHour=0;
 		int afterStopMinutes=0;
 		int afterStopSeconds=0;
-		
 		while(true)
 		{
 			System.out.println("Press S to start the watch: ");
@@ -27,7 +26,6 @@ public class StopWatch
 			else
 				break;
 		}
-		
 		beforeStartHour=time.getHour();
 		beforeStartMinutes=time.getMinute();
 		beforeStartSeconds=time.getSecond();
