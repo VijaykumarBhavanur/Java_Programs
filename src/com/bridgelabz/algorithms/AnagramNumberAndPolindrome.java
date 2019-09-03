@@ -76,7 +76,8 @@ public class AnagramNumberAndPolindrome {
 	{
 		
 		ArrayList al = new ArrayList();
-		for (int i = 2; i < 1000; i++) {
+		for (int i = 2; i < 1000; i++) 
+		{
 			//boolean prime = isPrime(i);
 			if (isPrime(i) && isPalindrome(String.valueOf(i)))
 				al.add(i);

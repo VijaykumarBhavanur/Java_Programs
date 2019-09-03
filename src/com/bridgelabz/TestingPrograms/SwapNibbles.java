@@ -16,12 +16,11 @@ public class SwapNibbles {
 			int rem=n%2;
 			bin=rem+bin;
 			n=n/2;
-		}
-		
-		
+		}	
 		System.out.println(temp+" in binary: "+bin);
-		System.out.println(bin.length());
-		if(bin.length()>=4 && bin.length()<8)
+		//System.out.println(bin.length());
+		
+		if(bin.length()>=4 && bin.length()<8 ||bin.length()<4)
 		{
 			int pad=8-bin.length();
 			
@@ -31,6 +30,15 @@ public class SwapNibbles {
 				pad--;
 			}
 		}
+		/*
+		 * else {
+		 * 
+		 * int pad=4-bin.length();
+		 * 
+		 * while(pad!=0) { bin="0"+bin; pad--; }
+		 * 
+		 * }
+		 */
 		
 		System.out.println(temp+" in binary after padding 0's : "+bin);
 		
@@ -51,10 +59,10 @@ public class SwapNibbles {
 		for (int i = 0; i <bin.length(); i++)
 		{
 				int rem=number%10;
-				decimal=decimal+Math.pow(2, i);
+				decimal=decimal+rem*Math.pow(2, i);
 				number=number/10;
 		}
-		System.out.println("Decimal equivalent of: "+String.valueOf(c)+" is: "+decimal);
+		System.out.println("Decimal equivalent of: "+String.valueOf(c)+" is: "+(int)decimal);
 	}
 	
 
