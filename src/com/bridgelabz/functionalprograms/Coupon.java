@@ -6,7 +6,7 @@ public class Coupon
 {
 	   static int[] addDistinct(int a[],int n)
 	   {
-		   if(a.length==0)
+		   if(a.length==1)
 		   {
 			   a[0]=n;
 			   return a;
@@ -41,6 +41,7 @@ public class Coupon
 				
 				int number=r.nextInt(1000);
 				distinct=addDistinct(distinct, number);
+				
 				if(distinct[distinct.length-1]!=0)
 					break;
 			}
