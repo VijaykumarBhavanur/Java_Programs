@@ -1,6 +1,8 @@
 package com.bridgelabz.datastructures;
 
-import java.util.LinkedList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LL {
@@ -15,7 +17,7 @@ public class LL {
 
 	Node head;
 
-	boolean add(Object obj) {
+	boolean add(String obj) {
 
 		Node n = new Node(obj);
 
@@ -68,7 +70,8 @@ public class LL {
 			System.out.println("No elements to display");
 			return;
 		}
-		while (t != null) {
+		while (t != null) 
+		{
 			if (t.next != null)
 				System.out.print(t.data + "-->");
 			else
@@ -149,87 +152,55 @@ public class LL {
 		}
 	}
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws FileNotFoundException 
 	{
 		LL link = new LL();
-		link.add(1);
-		link.add(2);
-		link.add(3);
-		link.add(4);
-		link.add(5);
-		link.add(6);
-		link.add(7);
-		link.add(8);
-		link.add(9);
-		link.add(10);
 
+		Scanner scanner = new Scanner( new File("/home/admin1/Desktop/file.txt") );
+		
+		ArrayList<String> numbers=new ArrayList<String>();
+		scanner.useDelimiter(" ");
+		
+		while(scanner.hasNext())
+		{
+			String item=scanner.next().trim();
+			numbers.add(item);
+		}
+		
+		for (int i = 0; i < numbers.size(); i++)
+		{
+			link.add(numbers.get(i));
+		}
+		
+		System.out.println("After adding to link list: ");
+		
+		Scanner sc1=new Scanner(System.in);
 		link.display(link);
 		System.out.println();
-		
-		Scanner scanner=new Scanner(System.in);
+
 		System.out.println("Enter data to be found: ");
-		String data=scanner.next();
 		
-		int search=link.search(link, data);
 		
-		if(search!=-1)
-		{
+		String data = sc1.next();
+
+		int search = link.search(link, data);
+
+		if (search != -1) {
 			link.deleteData(link, data);
-			System.out.println("data found @ index: "+search);
-			System.out.println("After deleting: "+data);
+			System.out.println("data found @ index: " + search);
+			System.out.println("After deleting: " + data);
 			link.display(link);
 			System.out.println();
-		}
-		else
-		{
-			
-		link.addLast(data);	
-		System.out.println(data+" not found in list ");
-		System.out.println("After adding: "+data);
-		link.display(link);
-		System.out.println();
-			
-		}
-		
-		/*
-		 * link.deleteLast(link); System.out.println("After deleting @ last: ");
-		 * link.display(link); System.out.println(); link.deleteFirst(link);
-		 * 
-		 * System.out.println("After deleting @ first: "); link.display(link);
-		 * System.out.println();
-		 * 
-		 * Scanner scanner=new Scanner(System.in); while(true) {
-		 * System.out.println("Enter data to be deleted: "); String data=scanner.next();
-		 * link.deleteData(link,data);
-		 * 
-		 * System.out.println("After deleting "+data); link.display(link);
-		 * 
-		 * System.out.println();
-		 * 
-		 * if(link.head==null) break; }
-		 * 
-		 * 
-		 * Scanner scanner=new Scanner(System.in);
-		 * System.out.println("Enter number of words: "); int n=scanner.nextInt();
-		 * 
-		 * for (int i = 0; i <n; i++) { System.out.println("Enter word: "); String
-		 * word=scanner.next(); link.add(word); }
-		 * 
-		 * link.display(link); System.out.println();
-		 * System.out.println("Enter word you want to find: ");
-		 * 
-		 * String findWord=scanner.next();
-		 * 
-		 * int found=link.search(link,findWord);
-		 * 
-		 * 
-		 * if(found==0) { link.add(findWord);
-		 * System.out.println(findWord+" not found in list, after adding new word: ");
-		 * link.display(link); System.out.println(); } else {
-		 * System.out.println(findWord+" found at index: "+found); link.display(link);
-		 * 
-		 * System.out.println(); }
-		 */
-	}
+		} else {
 
+			link.addLast(data);
+			System.out.println(data + " not found in list ");
+			System.out.println("After adding: " + data);
+			link.display(link);
+			System.out.println();
+
+		}
+	}
 }
+
+
