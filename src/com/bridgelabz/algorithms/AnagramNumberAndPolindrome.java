@@ -79,7 +79,7 @@ public class AnagramNumberAndPolindrome {
 		for (int i = 2; i < 1000; i++) 
 		{
 			//boolean prime = isPrime(i);
-			if (isPrime(i) && isPalindrome(String.valueOf(i)))
+			if (isPrime(i))// && isPalindrome(String.valueOf(i)))
 				al.add(i);
 		}
 
@@ -91,17 +91,24 @@ public class AnagramNumberAndPolindrome {
 		
 		
 		System.out.println("Prime and polindrome  and Anagram numbers within 1000 are: ");
-
-		for (int i = 0; i < al.size(); i++) {
+		int count=0;
+		for (int i = 0; i < al.size(); i++) 
+		{
 			boolean res = false;
-			for (int j = 2; j <= 1000; j++) {
-				if (j != (int) al.get(i))
+			for (int j = 0; j <= 1000; j++) 
+			{
 					res = isAnagram(al.get(i).toString(), String.valueOf(j));
 
 				if (res)
-					System.out.println(al.get(i) + "-->" + j);
+				{
+					System.out.println(al.get(i));
+					count++;
+					break;
+				}// + "-->" + j);
 			}
 		}
+		System.out.println("Count: "+count);
+		System.out.println("Total prime numbers: "+al.size());
 		 
 		//System.out.println(isPalindrome("medam"));
 	}

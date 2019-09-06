@@ -24,6 +24,7 @@ public class PrimeFactorsIn1000 {
 			 if(prime)
 				 System.out.println(i);
 		}
+		
 	}
 
 }
