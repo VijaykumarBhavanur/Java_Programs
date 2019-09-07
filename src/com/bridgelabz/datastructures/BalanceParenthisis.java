@@ -61,12 +61,12 @@ public class BalanceParenthisis
 		t.next=null;
 		return true;
 	}
-	
 	public static void main(String[] args) 
 	{
 		BalanceParenthisis stack=new BalanceParenthisis();
 		
 		String exp="(5+6)∗(7+8)/(4+3)(5+6)∗(7+8)/(4+3)";
+		//String exp="(a+b)+)";
 		char re[]=exp.toCharArray();
 		
 		for (int i = 0; i < re.length; i++)
