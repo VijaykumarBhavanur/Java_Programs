@@ -187,7 +187,7 @@ public class LL {
 
 		if (search != -1) {
 			link.deleteData(link, data);
-			System.out.println("data found @ index: " + search);
+			System.out.println(data+"found @ index: " + search);
 			System.out.println("After deleting: " + data);
 			link.display(link);
 			System.out.println();

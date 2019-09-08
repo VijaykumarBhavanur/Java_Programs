@@ -170,7 +170,6 @@ public class OLL
 		while(scanner.hasNext())
 		{
 			String s=scanner.next().trim();
-			//System.out.println(Integer.parseInt(s.replaceAll("\\uFEFF", "")));
 			numbers.add(Integer.parseInt(s.replaceAll("\\uFEFF", "")));
 		}
 		

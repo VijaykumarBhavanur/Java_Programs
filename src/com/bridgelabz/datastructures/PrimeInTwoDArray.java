@@ -1,20 +1,19 @@
-package com.bridgelabz.TestingPrograms;
+package com.bridgelabz.datastructures;
 
-import java.util.ArrayList;
-
-public class TwoDArray 
+public class PrimeInTwoDArray 
 {
-  static boolean isPrime(int n)
-  {
-	int i=2;
-	while(i<=n/2)
+	/* Method to to check  if number is Prime? */
+	static boolean isPrime(int n)
 	{
-		if(n%i==0)
-			return false;
-		i++;
+		int i=2;
+		while(i<=n/2)
+		{
+			if(n%i==0)
+				return false;
+			i++;
+		}
+		return true;
 	}
-	  return true;
-  }
 	public static void main(String[] args) 
 	{
 		 Object[][] a=new Object[11][26];
@@ -30,43 +29,32 @@ public class TwoDArray
 		a[7][0] = "      601-700   ";
 		a[8][0] = "      701-800   ";
 		a[9][0] = "      801-900   ";
-		a[10][0] = "     901-1000  ";
+		a[10][0]= "      901-1000  ";
 		 
 		 int cindex=1;
 		 int rindex=1;
+		 int range=100;
 		 
-		 ArrayList<Integer> primeList=new ArrayList<Integer>();
 		for (int i = 2; i <=1000; i++)
 		{
-			if(isPrime(i))
-				primeList.add(i);
-		}
-		
-		System.out.println(primeList);
-		
-	int range=100;
-	
-	for (int i = 0; i <primeList.size(); i++)
-	{
-			if(primeList.get(i)<=range)
+			if(isPrime(i) && i<=range) 
 			{
-				a[rindex][cindex]=primeList.get(i);
+				a[rindex][cindex]=i;
 				cindex++;
 			}
 			
-			if(primeList.get(i)>=range)
+			if(i>range)
 			{
 				range=range+100;
 				cindex=1;
 				rindex++;
 			}
-	}
+		}
 		
-		
-		
-		for (int i = 0; i < a.length; i++) 
+		/* Display 2-D Array */
+		for (int i = 0; i <11; i++) 
 		{
-			for (int j = 0; j < a.length; j++) 
+			for (int j = 0; j <26; j++) 
 			{
 				if(a[i][j]!=null)
 				System.out.print(a[i][j]+"  ");
