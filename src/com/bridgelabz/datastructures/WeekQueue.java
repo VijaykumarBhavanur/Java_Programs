@@ -44,13 +44,21 @@ public class WeekQueue
 	}
 
 	
-	  void display() { Node t=head;
+	  void display() 
+	  {
+		  	Node t=head;
 	  
-	  while(t!=null) { WeekDay day=(WeekDay)t.data;
-	  
-	  if(t!=null) System.out.print(day.day+"----->"+day.date);
-	  
-	  t=t.next; }
+		  while(t!=null) 
+		  { 
+			  WeekDay day=(WeekDay)t.data;
+		  
+			  if(t.next!=null)
+				  System.out.print(day.day+"----->"+day.date);
+		  
+			  else
+				  System.out.print(day.day+"----->"+day.date+"\n");
+			  t=t.next; 
+			}
 	  
 	  }
 	 
@@ -87,20 +95,17 @@ public class WeekQueue
 		int index=0;
 		
 		String weeks[]= {"Su","Mo","Tu","We","Th","Fr","Sa"};
-		//Object[] week=new Object[30];
 		int in=0;
 		WeekQueue wq=new WeekQueue();
 		while(i<=30)
 		{
 			if(i<10)
 			{
-			//week[in]=new WeekDay(weeks[index],"0"+String.valueOf(i));
 			WeekDay w=	new WeekDay(weeks[index],"0"+String.valueOf(i));
 			wq.add(w);
 			}
 			else
 			{
-				//week[in]=new WeekDay(weeks[index],String.valueOf(i));
 				WeekDay w=	new WeekDay(weeks[index],String.valueOf(i));
 				wq.add(w);
 			}
@@ -113,10 +118,6 @@ public class WeekQueue
 			i++;
 		}
 		
-		/*
-		 * for (Object object : week) { WeekDay w=(WeekDay)object;
-		 * System.out.print(w.date+"--"+w.day+"\n"); } wq.display();
-		 */
 		
 		System.out.println("List of WeekDay Objects: ");
 		wq.display();

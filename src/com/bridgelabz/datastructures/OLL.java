@@ -1,14 +1,15 @@
 package com.bridgelabz.datastructures;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class OLL 
 {
-	/*Custom data-type 'Node' with two fields 'data'-->to store data and
-	 *'next'-->to hold reference of next node */
+	/* Custom class to create node in linked list*/
 	
   class Node      
 	{
@@ -77,7 +78,7 @@ public class OLL
 				System.out.print(t.data + "-->");
 			}else
 				{
-					System.out.print(t.data);
+					System.out.print(t.data+"\n");
 				}
 				t = t.next;
 		}
@@ -126,10 +127,22 @@ public class OLL
 	/*Method to add a number at specific position in Linked_List*/
 	void insertAtSpecificPosition(OLL oll,int num)
 	{
+		Node n=new Node(num);
+		if(head==null)
+		{
+			head=n;   //List is empty add newNode 
+			return ;
+		}
+		
 		Node t=head;
 		Node move=t.next;
-		Node n=new Node(num);
-		
+	
+		if(t.next==null && (int)t.data>num)
+		{
+			n.next=t;
+			head=n;      //If number less than head.data add it first
+			return;
+		}
 		while(t.next!=null)
 		{
 			// To insert at First
@@ -156,9 +169,28 @@ public class OLL
 		}
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException 
+	/*Method to add numbers to file*/
+	static void writeListToFile(FileWriter file,OLL link) throws IOException
 	{
-		//int arr[] = { 11, 2, 30, 4, 50 };
+		if(head==null)
+		{
+			System.out.println("No content to write in file");
+			return;
+		}
+		Node t=head;
+		while(t!=null)
+		{
+			if(t.next!=null)
+				file.write(String.valueOf(t.data)+",");
+			else
+				file.write(String.valueOf(t.data));
+			
+			t=t.next;
+		}
+		file.close();
+	}
+	public static void main(String[] args) throws IOException 
+	{
 		
 		OLL link = new OLL();
 
@@ -173,49 +205,47 @@ public class OLL
 			numbers.add(Integer.parseInt(s.replaceAll("\\uFEFF", "")));
 		}
 		
-		System.out.println("Before sorting: ");
-		System.out.println(numbers);
+		System.out.println("Contents of file: ");
+		System.out.println(numbers+"\n");
 		
-		
-		Collections.sort(numbers);
-		System.out.println("After sorting: ");
-		System.out.println(numbers);
 		
 		for (int i = 0; i <numbers.size(); i++)
 		{
-			link.add(numbers.get(i));
+			link.insertAtSpecificPosition(link,numbers.get(i));
 		}
 		
-		System.out.println("After adding to link list: ");
-		
-		
+		System.out.println("After sorting and adding to link list: ");
 		link.display(link);
+		
 		System.out.println();
-		
-		
+
 		System.out.println("Enter number you want to find: ");
-		  Scanner sc=new Scanner(System.in);
-		  int findNum=sc.nextInt();
-		  
-			int search= link.search(link,findNum);
-			
-			  if(search!=-1)
-			  {
-				  link.deleteData(link, findNum);
-				  System.out.println(findNum+" found at index: "+search);
-				  System.out.println("After deleting: "+findNum);
-				  link.display(link);
-				  System.out.println();
-			  }
-			  else
-			  {
-				  link.insertAtSpecificPosition(link,findNum);
-				  System.out.println(findNum+" not found in list: ");
-				  System.out.println("After adding at specific: "+findNum);
-				  link.display(link);
-				  System.out.println();
-				  
-			  }
+		Scanner sc = new Scanner(System.in);
+		int findNum = sc.nextInt();
+
+		int search = link.search(link, findNum);
+
+		if (search != -1) 
+		{
+			link.deleteData(link, findNum);
+			System.out.println(findNum + " found at index: " + search);
+			System.out.println("After deleting: " + findNum);
+			link.display(link);
+			System.out.println();
+		} 
+		else 
+		{
+			link.insertAtSpecificPosition(link, findNum);
+			System.out.println(findNum + " not found in list: ");
+			System.out.println("After adding "+findNum+" at specific position: ");
+			link.display(link);
+			System.out.println();
 		  }
-			  
+		
+		
+		   FileWriter fw=new FileWriter("/home/admin1/Desktop/sortedNumber.txt");  
+		   //adding numbers to file
+		   link.writeListToFile(fw, link);
+		
 	}
+}

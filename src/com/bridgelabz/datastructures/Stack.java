@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Stack 
 {
+	/* Custom class to create node in linked list*/
 	class Node
 	{
 		Node next;
@@ -16,6 +17,8 @@ public class Stack
 	}
 	
 	Node head;
+	
+	/* Method to add new-node at the end of Linked List*/
 	boolean addLast(Stack stack,Object num)
 	{
 		Node n=new Node(num);
@@ -41,6 +44,8 @@ public class Stack
 		return true;
 	}
 	
+	
+	/*Method to remove node from at the linked list */
 	boolean deleteLast(Stack stack)
 	{
 		if(head.next==null)
@@ -59,6 +64,8 @@ public class Stack
 		t.next=null;
 		return true;
 	}
+	
+	/*Method display data in stack*/
 	void displayStack(Stack stack)
 	{
 		if(head==null)
@@ -78,6 +85,8 @@ public class Stack
 	}
 	Node t=head;
 	
+	
+	/*Method to pop elements of stack*/
 	void pop(Stack stack)
 	{
 		t=head;
@@ -99,36 +108,40 @@ public class Stack
 		{
 			t=t.next;
 		}
+		
 		System.out.println("Popped: "+t.next.data);
 		t.next=null;
 		stack.displayStack(stack);
 		System.out.println();
-		pop(stack);
+		pop(stack);  //Recursive function call till stack empty
 	}
+	
+	
+	
 	public static void main(String[] args) 
 	{
 		
 		  ArrayList<Integer> primeList=new ArrayList<Integer>();
+		 
 		  Stack stack=new Stack();
 		  for (int i = 2; i <1000; i++)
 		  { 
-			  if(Queue.isPrime(i)) 
-				  primeList.add(i);
+			  if(Queue.isPrime(i))   //isPrime() method of queue class
+				  primeList.add(i);  //Adding prime-numbers  to arrayList
 		  }
 		  
 		 for (int i = 0; i <primeList.size(); i++) 
 		 {
 			for (int j = 0; j <1000; j++)
 			{
-				if(Queue.isAnagram(primeList.get(i),j))
+				if(Queue.isAnagram(primeList.get(i),j))  //Checking for anagram prime numbers
 				{
-					stack.addLast(stack,primeList.get(i));
+					stack.addLast(stack,primeList.get(i)); //pushing anagram prime numbers to stack
 					break;
 				}
 			}
 		}
 		System.out.println();
-		stack.pop(stack);
+		stack.pop(stack); //Popping stack to display anagram prime numbers
 	}
-
 }

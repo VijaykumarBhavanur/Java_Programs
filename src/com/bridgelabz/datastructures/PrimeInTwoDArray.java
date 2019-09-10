@@ -14,6 +14,7 @@ public class PrimeInTwoDArray
 		}
 		return true;
 	}
+	
 	public static void main(String[] args) 
 	{
 		 Object[][] a=new Object[11][26];
@@ -43,7 +44,7 @@ public class PrimeInTwoDArray
 				cindex++;
 			}
 			
-			if(i>range)
+			if(i>range)  //Moving cursor to next row and first column
 			{
 				range=range+100;
 				cindex=1;

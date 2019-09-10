@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class PolindromeDequeue 
 {
+	/* Custom class to create node in linked list*/
 	class Node
 	{
 		Node next;
@@ -15,6 +16,7 @@ public class PolindromeDequeue
 	}
 	Node head;
 	
+	/*Method to display data of linked-list*/
 	void display()
 	{
 		if(head==null)
@@ -26,7 +28,7 @@ public class PolindromeDequeue
 		while(t!=null)
 		{
 			if(t.next!=null)
-				System.out.print(t.data+"-->");
+				System.out.print(t.data+"-->");   //Traversing linked-list till end and displaying data
 			else
 				System.out.print(t.data+"\n");
 			
@@ -34,6 +36,8 @@ public class PolindromeDequeue
 		}
 		
 	}
+	
+	/* Method to add new-node to Linked List*/
 	boolean add(Object data)
 	{
 		Node n=new Node(data);
@@ -52,6 +56,7 @@ public class PolindromeDequeue
 		return true;
 	}
 	
+	/* Method to remove node at beginning of Linked List*/
 	char deleteFirst()
 	{
 		Node t=head;
@@ -73,6 +78,7 @@ public class PolindromeDequeue
 		return data;
 	}
 	
+	/* Method to remove node at the end of Linked List*/
 	char deleteLast()
 	{
 		Node t=head;
@@ -102,7 +108,7 @@ public class PolindromeDequeue
 	}
 	
 	
-	
+	/* Method to return size of Linked List*/
 	int size()
 	{
 		int count=0;
@@ -115,13 +121,14 @@ public class PolindromeDequeue
 		return count;
 	}
 	
+	/* Method to check if String is polindrome*/
 	boolean isPolindrome(PolindromeDequeue deque)
 	{
 		Node t=head;
 		boolean polindrome=true;
 		
 		
-		if(deque.size()%2==0 && deque.size()!=0)
+		if(deque.size()%2==0 && deque.size()!=0)  //If string is of even length
 		{
 			while(t!=null&&deque.size()!=0)
 			{
@@ -131,7 +138,7 @@ public class PolindromeDequeue
 				System.out.println("fetching: "+last+" from rear end");
 				System.out.println("Comparing "+first+" & "+last+"\n");
 				
-					if(first!=last)
+					if(first!=last)    //Comparing first node-data with last node-data
 					{
 						polindrome=false;
 						System.out.println(first+" & "+last+" are not same\n");
@@ -142,7 +149,7 @@ public class PolindromeDequeue
 				t=t.next;
 			}
 		}
-		else
+		else  //If string is of odd length
 		{
 			int index=deque.size()/2;
 			
@@ -161,7 +168,6 @@ public class PolindromeDequeue
 						System.out.println(first+" & "+last+" are not same\n");
 						polindrome=false;
 						break;
-						//return polindrome;
 					}
 					else
 						System.out.println(first+" & "+last+" are same\n");
@@ -172,6 +178,7 @@ public class PolindromeDequeue
 		return polindrome;
 		
 	}
+	
 	public static void main(String[] args) 
 	{
 			PolindromeDequeue deque=new PolindromeDequeue();
@@ -185,18 +192,7 @@ public class PolindromeDequeue
 			{
 				deque.add(data[i]);
 			}
-		/*
-		 * deque.add('m'); deque.add('a'); deque.add('d'); deque.add('a');
-		 * deque.add('m');
-		 */
 			
-			deque.display();
-			
-		/*
-		 * while(deque.size()!=0) System.out.println(deque.deleteLast()+" deleted");
-		 */
-			
-		
 		  System.out.println("No of elements in dequeue :"+deque.size());
 		  
 		  boolean check=deque.isPolindrome(deque);
@@ -204,32 +200,6 @@ public class PolindromeDequeue
 		  if(check)
 			  System.out.println(string+" Polindrome"); 
 		  else
-		  System.out.println(string+" Not Polindrome");
-		 
-			
-		
-		/*
-		 * deque.deleteLast(); deque.display();
-		 * System.out.println("******************");
-		 * 
-		 * deque.deleteLast(); deque.display();
-		 * 
-		 * System.out.println("******************");
-		 * 
-		 * deque.deleteLast(); deque.display();
-		 * 
-		 * System.out.println("******************");
-		 * 
-		 * deque.deleteLast(); deque.display();
-		 * 
-		 * System.out.println("******************");
-		 * 
-		 * deque.deleteLast(); deque.display();
-		 * 
-		 * System.out.println("******************");
-		 * 
-		 * deque.deleteLast(); deque.display();
-		 */
-		 
+			  System.out.println(string+" Not Polindrome");
 	}
 }

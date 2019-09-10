@@ -2,6 +2,7 @@ package com.bridgelabz.datastructures;
 
 import java.util.Scanner;
 
+/*Custom class to store transaction info token-no & amount*/
 class Transaction
 {
 	int tokenNo;
@@ -16,6 +17,7 @@ class Transaction
 
 public class BankCashCounter 
 {
+	/* Custom class to create node in linked-list*/
 	class Node
 	{
 		Node next;
@@ -27,52 +29,58 @@ public class BankCashCounter
 		}
 	}
 	
+	/* Maintaining Outstanding balance in head-node*/
 	Node head=new Node(1000.00);  //Initial bank balance 1000
 	
-	
+	/*Method to add new transaction to queue*/
 	boolean add(Transaction data)
 	{
-		Node n=new Node(data); //Convert reference as Node Data.
+		Node n=new Node(data); //Creating new-node for new transaction
 		
 		if(head.next==null) //No people in queue so add person
 		{
 			head.next=n;
 			Transaction t1=(Transaction)n.data;
 			
-			if(t1.amount>0)
+			if(t1.amount>0)  //amount positive means deposit
 			{
 				 System.out.println("Token No:"+t1.tokenNo+" deposited amount:Rs."+t1.amount);
 				 System.out.println(head.data+"  + "+t1.amount);
 				 double am=(double)head.data;
-				 am=am+t1.amount;
-				 head.data=am;
+				 am=am+t1.amount;  
+				 head.data=am;  //adding deposited amount to bank-balance
 			}
-			else
+			else //amount negative means withdrawal
 			{
 				System.out.println("Token No:"+t1.tokenNo+" withdrawn amount:Rs."+(-1*t1.amount));
 				System.out.println(head.data+"  - "+t1.amount);
 				double am=(double)head.data;
 				am=am+t1.amount;
-				head.data=am;
+				head.data=am; //subtracting withdrawal amount from bank-balance
 			}
 			
 			return true;
 		}
 		
+		
+		/*some people already in queue add new person at the end*/
+		
+		
 		Node t=head.next;
 		while(t.next!=null)
 		{
-			t=t.next;
+			t=t.next; //Traversing queue till end
 		}
 		
-		t.next=n; //some people exist in queue so add person at queue end
+		t.next=n; //adding person at end of queue
 		Transaction t1=(Transaction)n.data;
+	
 		if(t1.amount>0)
 		{
 			System.out.println("Token No:"+t1.tokenNo+" deposited amount:Rs."+t1.amount);
 			System.out.println(head.data+"  + "+t1.amount);
 			double am=(double)head.data;
-			am=am+t1.amount;
+			am=am+t1.amount; //adding deposited amount to bank-balance
 			head.data=am;
 		}
 		else
@@ -80,24 +88,27 @@ public class BankCashCounter
 			System.out.println("Token No:"+t1.tokenNo+" withdrawn amount:Rs."+(-1*t1.amount));
 			System.out.println(head.data+"  - "+t1.amount);
 			double am=(double)head.data;
-			am=am+t1.amount;
+			am=am+t1.amount; //subtracting withdrawal amount from bank-balance
 			head.data=am;
 		}
 	
 		return true;
 	}
 	
+	/*Method to get Outstanding bank balance*/
 	double bankBalance()
 	{
 		return (double)head.data;
 	}
 	
+	/*Method to display people in queue*/
 	void display()
 	{
 		BankCashCounter b= new BankCashCounter();
 		
 		if(head.next==null)
-			System.out.println("No people in queue\n Outstanding bank balance: "+b.bankBalance());
+			return;
+			//System.out.println("No people in queue\n Outstanding bank balance: "+b.bankBalance());
 		else
 		{
 			Node t=head.next;
@@ -116,6 +127,7 @@ public class BankCashCounter
 		}
 	}
 	
+	/*Method to remove people from queue*/
 	boolean dequeue()
 	{
 		if(head.next==null)
@@ -126,12 +138,12 @@ public class BankCashCounter
 		}
 		Node t=head.next;
 		
-		while(head.next!=null)
+		while(head.next!=null) //More people exist
 		{
 			Transaction tran=(Transaction)head.next.data;
 			
 			System.out.println("Dequed: "+tran.tokenNo);
-			head.next=t.next;
+			head.next=t.next; //Removed person from queue
 			t=head.next;
 		}
 			System.out.println("No people in queue");
@@ -149,14 +161,14 @@ public class BankCashCounter
 			
 			while(true)
 			{
-				System.out.println("More people");
-				System.out.println("Press y if yess or n if not");
+				System.out.println("More people in queue?");
+				System.out.println("\nPress y if yess or n if not");
 				char c=scanner.next().charAt(0);
-				if(c=='n' || c=='N')
+				if(c=='n' || c=='N')  //No people
 					break;
 				
 				
-				System.out.println("Press 1 for deposit:\nPress 2 for withdraw");
+				System.out.println("\nPress 1 for deposit:\nPress 2 for withdraw");
 				char ch1=scanner.next().charAt(0);
 				
 					if(ch1=='1')
@@ -166,7 +178,7 @@ public class BankCashCounter
 							double amount=scanner.nextDouble();
 							Transaction t1= new Transaction(token,amount);
 							
-							b.add(t1);
+							b.add(t1); //Adding new transaction
 					}
 					
 					else if(ch1=='2')
@@ -175,13 +187,13 @@ public class BankCashCounter
 						System.out.println("Enter amount: ");
 						double amount=scanner.nextDouble();
 						Transaction t2= new Transaction(token,-(amount));
-						b.add(t2);
+						b.add(t2); //Adding new transaction
 					}
 			}
 			
-			b.display();
-			b.dequeue();
-			System.out.println("Outstanding Bank balance: "+b.bankBalance());
+			b.display(); //displaying persons in queue
+			b.dequeue(); //removing persons 
+			System.out.println("Outstanding Bank balance: "+b.bankBalance()); //Displaying outstanding bank balance
 	}
 
 }

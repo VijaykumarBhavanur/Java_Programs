@@ -47,8 +47,7 @@ public class Queue
 	
 	 boolean deleteFirst(Queue queue)
 	{
-		Node t=null;//=head.next;
-		//System.out.println("Dequeued: "+head.data);
+		Node t=null;
 		
 		while(head!=null)
 		{
@@ -119,12 +118,7 @@ public class Queue
 		return true;
 	}
 
-	/*
-	 * void displayQueue(Queue queue) { Node t=head;
-	 * 
-	 * while(t!=null) { if(t.next!=null) System.out.println(t.data+"--->"); else
-	 * System.out.println(t.data); t=t.next; } }
-	 */
+	
 	 
 	void display(Queue l) 
 	{
@@ -155,12 +149,6 @@ public class Queue
 	{
 		Queue queue=new Queue();
 		
-		/*
-		 * queue.addLast(queue,"1"); queue.addLast(queue,"2"); queue.addLast(queue,"3");
-		 * queue.addLast(queue,"4"); queue.addLast(queue,"5"); queue.display(queue);
-		 */
-		
-		//queue.displayQueue(queue);
 		
 		
 		  ArrayList<Integer> primeList=new ArrayList<Integer>();
