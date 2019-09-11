@@ -1,8 +1,8 @@
-package com.bridgelabz.datastructures;
+package com.bridgelabz.TestingPrograms;
 
 import java.util.Scanner;
 
-public class BalanceParenthisis<T> 
+public class ParenthisisCheck<T> 
 {
 	/* Custom class to create node in linked list*/
 	class Node
@@ -46,8 +46,26 @@ public class BalanceParenthisis<T>
 	
 	
 	/* Method to remove node at the end of Linked List*/
-	boolean deleteLast()
+	boolean deleteLast(char bracket)
 	{
+		char toBePopped=0;
+	
+		switch (bracket) 
+		{
+
+			case ')':
+				toBePopped = '(';
+				break;
+	
+			case ']':
+				toBePopped = '[';
+				break;
+	
+			case '}':
+				toBePopped = '{';
+		}
+		
+		System.out.println("To be popped: "+toBePopped);
 		Node t=head;
 		
 		if(t==null)
@@ -56,25 +74,37 @@ public class BalanceParenthisis<T>
 			System.out.println();
 			return false;
 		}
-		if(t.next==null)
+		
+		if(t.next==null && (char)t.data==toBePopped)
 		{
-			System.out.println("Popped: "+t.data); //head.next=null means only one element exist so remove it
+			System.out.println("Popped: "+t.data);  //head.next=null means only one element exist so remove it
 			System.out.println();
 			head=null;
 			return true;
 		}
+		else if( t.next==null && (char)t.data!=toBePopped)
+		{
+			return false;
+		}
 		
 		while(t.next.next!=null)
 		{
-			t=t.next; //Traversing linked-list till end
+			t=t.next;    //Traversing linked-list till end
 		}
-		t.next=null; //Removing last node
-		return true;
+		
+		if((char)t.data==toBePopped)
+		{
+			System.out.println("popped: "+t.data);
+			t.next=null;    //Removing last node
+			return true;
+		}
+		
+			return false;
 	}
 	
 	public static void main(String[] args) 
 	{
-		BalanceParenthisis<Character>  stack=new BalanceParenthisis<Character> ();
+		ParenthisisCheck<Character>  stack=new ParenthisisCheck<Character> ();
 		Scanner scanner=new Scanner(System.in);
 		System.out.println("Enter the expression to check if balanced: ");
 		String exp=scanner.nextLine();
@@ -83,19 +113,20 @@ public class BalanceParenthisis<T>
 		
 		for (int i = 0; i < re.length; i++)
 		{
-			if(re[i]=='(')
-				stack.addLast(re[i]);  //pushing "(" to stack
+			if(re[i]=='(' || re[i]=='[' || re[i]=='{')
+				stack.addLast(re[i]);  //pushing "("  or "[" or "{" to stack
 			else
-				if(re[i]==')')
+				if(re[i]==')' || re[i]==']' || re[i]=='}')
 				{
-					System.out.println("Found ')'");
+					char bracket=re[i];
+					System.out.println("Found "+re[i]);
 					System.out.println();
 					
-					boolean pop=stack.deleteLast();	 //Popping ")" from stack
+					boolean pop=stack.deleteLast(bracket);	 //Popping ")" from stack
 					
-					if(!pop) //If no element to pop i.e no "(" in stack
+					if(!pop) //If no element to pop i.e no "(" or '[' or '{' in stack
 					{
-						System.out.println("Expression Not Balanced");
+						System.out.println("Expression Not Balanced:::::::::::");
 						return;
 					}
 				}

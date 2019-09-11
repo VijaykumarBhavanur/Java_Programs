@@ -5,11 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import com.bridgelabz.datastructures.OLL.Node;
 
-public class LL 
+public class LL<T>
 {
 	
 	/* Custom class to create node in linked list*/
@@ -24,7 +25,7 @@ public class LL
 		}
 	}
 
-	static Node head;
+	 Node head;
 
 	/* Method to add new-node to Linked List*/
 	boolean add(String obj) 
@@ -82,7 +83,7 @@ public class LL
 		return true;
 	}
 /*Method to display data of linked-list*/
-	void display(LL l) 
+	void display(LL<String>  l) 
 	{
 		Node t = head;
 		if (head == null) 
@@ -121,7 +122,7 @@ public class LL
 	}
 	
 /*Method to find word in linked-list*/
-	int search(LL ll, String word)
+	int search(LL<String>  ll, String word)
 	{
 		Node t = head;
 		int i = 0;
@@ -138,7 +139,7 @@ public class LL
 	}
 
 	/*Method to remove node from at the linked list */
-	void deleteLast(LL link) 
+	void deleteLast(LL<String>  link) 
 	{
 
 		Node t = head;
@@ -152,14 +153,14 @@ public class LL
 	}
 
 	/* Method to remove first node of linked-list*/
-	void deleteFirst(LL link)
+	void deleteFirst(LL<String>  link)
 	{
 		Node t = head.next;
 		head = t;
 	}
 
 	/*Method to remove node with specific data*/
-	void deleteData(LL link, String data) 
+	void deleteData(LL<String>  link, String data) 
 	{
 		Node t = head;
 		Node move = t.next;
@@ -189,7 +190,7 @@ public class LL
 	}
 
 	/*Method to add words to file*/
-	static void writeListToFile(FileWriter file,LL link) throws IOException
+	 void writeListToFile(FileWriter file,LL<String>  link) throws IOException
 	{
 		if(head==null)
 		{
@@ -212,7 +213,7 @@ public class LL
 	
 	public static void main(String[] args) throws IOException 
 	{
-		LL link = new LL();
+		LL<String> link= new LL<String>();
 
 		Scanner scanner = new Scanner( new File("/home/admin1/Desktop/file.txt") );
 		
@@ -237,7 +238,6 @@ public class LL
 		System.out.println();
 
 		System.out.println("Enter data to be found: ");
-		
 		
 		String data = sc1.next();
 
@@ -266,7 +266,9 @@ public class LL
 		  FileWriter fw=new FileWriter("/home/admin1/Desktop/String.txt");  
 		   //Writing words to file
 		   link.writeListToFile(fw, link);
+		   
 	}
+	
 }
 
 

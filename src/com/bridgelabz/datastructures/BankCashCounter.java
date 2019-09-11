@@ -167,7 +167,6 @@ public class BankCashCounter
 				if(c=='n' || c=='N')  //No people
 					break;
 				
-				
 				System.out.println("\nPress 1 for deposit:\nPress 2 for withdraw");
 				char ch1=scanner.next().charAt(0);
 				

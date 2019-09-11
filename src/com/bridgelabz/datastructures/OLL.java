@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class OLL 
+public class OLL<T>
 {
 	/* Custom class to create node in linked list*/
 	
@@ -22,7 +22,7 @@ public class OLL
 		}
 	}
 	
-	static Node head;
+	 Node head;
 	
 	/*Method to add elements to Linked_List*/ 
     boolean add(Object obj) 
@@ -58,7 +58,7 @@ public class OLL
 	}
 	
 	/*Method to display elements of Linked_List*/
-    void display(OLL l) 
+    void display(OLL<Integer> l) 
 	{
 		Node t = head;
 		//If head 'null' then  List is empty
@@ -86,7 +86,7 @@ public class OLL
 	
 	/*Method to find a number in Linked_List*/
     
-    int search(OLL ll, int word) {
+    int search(OLL<Integer> ll, int word) {
 		Node t = head;
 		int i = 0;
 
@@ -101,7 +101,7 @@ public class OLL
 	}
 	
 	/*Method to delete a number in Linked_List*/
-	void deleteData(OLL link, int data) 
+	void deleteData(OLL<Integer> link, int data) 
 	{
 		Node t = head;
 		Node move = t.next;
@@ -125,7 +125,7 @@ public class OLL
 	}
 
 	/*Method to add a number at specific position in Linked_List*/
-	void insertAtSpecificPosition(OLL oll,int num)
+	void insertAtSpecificPosition(OLL<Integer> oll,int num)
 	{
 		Node n=new Node(num);
 		if(head==null)
@@ -170,7 +170,7 @@ public class OLL
 	}
 	
 	/*Method to add numbers to file*/
-	static void writeListToFile(FileWriter file,OLL link) throws IOException
+	 void writeListToFile(FileWriter file,OLL<Integer> link) throws IOException
 	{
 		if(head==null)
 		{
@@ -192,7 +192,7 @@ public class OLL
 	public static void main(String[] args) throws IOException 
 	{
 		
-		OLL link = new OLL();
+		OLL<Integer>  link = new OLL<Integer> ();
 
 		Scanner scanner = new Scanner( new File("/home/admin1/Desktop/number.txt") );
 		
