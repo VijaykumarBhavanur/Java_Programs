@@ -118,7 +118,6 @@ public class WeekQueue
 			i++;
 		}
 		
-		
 		System.out.println("List of WeekDay Objects: ");
 		wq.display();
 		System.out.println();

@@ -21,7 +21,7 @@ public class Stack
 	/* Method to add new-node at the end of Linked List*/
 	boolean addLast(Stack stack,Object num)
 	{
-		Node n=new Node(num);
+		Node n=new Node(num); //creating new-node from data
 		Node t=head;
 		
 		if(head==null)

@@ -3,10 +3,10 @@ package com.bridgelabz.datastructures;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.bridgelabz.datastructures.OLL.Node;
 
 public class Queue
 {
+	/* Custom class to create node in linked list*/
 	class Node
 	{
 		Node next;
@@ -20,9 +20,10 @@ public class Queue
 	}
 	
 	 Node head;
+	 /* Method to add new-node at the end of Linked List*/
 	 boolean addLast(Queue queue,Object num)
 	{
-		Node n=new Node(num);
+		Node n=new Node(num); //creating new-node from data
 		Node t=head;
 		
 		
@@ -44,7 +45,7 @@ public class Queue
 			return true;
 		}
 	}
-	
+	 /* Method to delete first-node of Linked List*/
 	 boolean deleteFirst(Queue queue)
 	{
 		Node t=null;
@@ -61,6 +62,7 @@ public class Queue
 		return true;
 	}
 	
+	 /* Method to check if two numbers are anagram*/
 	static boolean isAnagram(int n1,int n2)
 	{
 		if(digitCount(n1)!=digitCount(n2))
@@ -72,6 +74,7 @@ public class Queue
 			return false;	
 		
 	}
+	 /* Method to compare two integer arrays*/
 	static boolean compare(int n1,int n2)
 	{
 		int arr1[]=new int[digitCount(n1)];
@@ -97,6 +100,8 @@ public class Queue
 		return Arrays.equals(arr1, arr2);
 		
 	}
+	
+	/*Method to count number of digits in a number*/
 	static int digitCount(int number)
 	{
 		int digCount=0;
@@ -108,6 +113,7 @@ public class Queue
 		
 		return digCount;
 	}	
+	/*Method to check if a number is prime*/
 	static boolean isPrime(int n)
 	{
 		for (int i =2; i <=n/2; i++) 
@@ -119,7 +125,7 @@ public class Queue
 	}
 
 	
-	 
+	 /*Method to display queue elements*/
 	void display(Queue l) 
 	{
 		Node t = head;
@@ -145,18 +151,17 @@ public class Queue
 				t = t.next;
 		}
 	}
+	
 	public static void main(String[] args)
 	{
 		Queue queue=new Queue();
-		
-		
 		
 		  ArrayList<Integer> primeList=new ArrayList<Integer>();
 		  
 		  for (int i = 2; i < 1000; i++)
 		  {
 			  if (isPrime(i)) 
-				  primeList.add(i); 
+				  primeList.add(i);  //Adding prime numbers to arrayList
 		  }
 		  
 		  System.out.println("Prime numbers: \n"+primeList);
@@ -167,7 +172,7 @@ public class Queue
 			  {
 				  if(isAnagram((int)primeList.get(i),j)) 
 				  {
-					  queue.addLast(queue,primeList.get(i)); 
+					  queue.addLast(queue,primeList.get(i));  //Adding prime & anagram numbers to queue
 					  break; 
 				  } 
 		      }
@@ -175,6 +180,6 @@ public class Queue
 			  System.out.println();
 			  System.out.println("**************************************");
 		  }
-		  queue.deleteFirst(queue);
+		  queue.deleteFirst(queue); //Removing prime & anagram numbers from queue
 	}
 }

@@ -132,7 +132,6 @@ public class BalanceParenthisis<T>
 				}
 		}
 		
-		
 		if(stack.head==null) //Matched ")" for every "("
 			System.out.println("Expression Balanced with parenthisis");
 		else
