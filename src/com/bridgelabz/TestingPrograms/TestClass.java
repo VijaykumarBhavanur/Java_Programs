@@ -1,4 +1,4 @@
-package com.bridgelabz.functionalprograms;
+package com.bridgelabz.TestingPrograms;
 
 import java.util.LinkedList;
 import java.util.Scanner;

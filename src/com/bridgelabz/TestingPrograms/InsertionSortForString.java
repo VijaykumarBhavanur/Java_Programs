@@ -2,6 +2,7 @@ package com.bridgelabz.TestingPrograms;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class InsertionSortForString 
 {
@@ -28,42 +29,50 @@ public class InsertionSortForString
 	
 	public static void main(String[] args) 
 	{
-		int a[]= {24,12,45,10,9,68};
-		int a1[]= {9,10,12,24,45,68};
-
+		System.out.println("Enter number of strings: ");
+		Scanner scanner=new Scanner(System.in);
+		int n=scanner.nextInt();
 		
+		//String[] s = { "Yam", "Any", "var", "bh" };
 		
-		String[] s = { "Yam", "Any", "var", "bh" };
+		String[] strings=new String[n];
 		
-		for (int i = 1; i < s.length; i++) 
+		System.out.println("Enter strings to be sorted: ");
+		
+		for (int i = 0; i <n; i++) 
+		{
+			strings[i]=scanner.next();
+		}
+		
+		System.out.println("Entered input: ");
+		for (int i = 0; i < strings.length; i++) 
+		{
+			System.out.print(strings[i]+" ");
+		}
+		for (int i = 1; i < strings.length; i++) 
 		{
 			int j = i - 1;
-			String temp = s[i];
+			String temp = strings[i];
 
-			while (j >= 0 && s[j].toLowerCase().compareTo(temp.toLowerCase()) > 0) 
+			while (j >= 0 && strings[j].toLowerCase().compareTo(temp.toLowerCase()) > 0) 
 			{
-				s[j + 1] = s[j];
+				strings[j + 1] = strings[j];
 				j--;
 			}
 			
-			s[j + 1] = temp;
+			strings[j + 1] = temp;
 		}
 		
-		if(binarySearch(s, "hi")!=-1)
-		System.out.println("Any is found at index: "+binarySearch(s, "Any"));
+		if(binarySearch(strings, "hi")!=-1)
+		System.out.println("Any is found at index: "+binarySearch(strings, "Any"));
 
 		else
 			System.out.println("hi not found");
-		System.out.println(Arrays.toString(s));
+		System.out.println(Arrays.toString(strings));
 		
 		
 		
 		
 		
-		/*
-		 * System.out.println(binarySearch(a1, 76)); if(binarySearch(a1, 76)!=-1)
-		 * System.out.println(9+"found at index: "+binarySearch(a1, 9)); else
-		 * System.out.println(76+"Not found");
-		 */
 	}
 }

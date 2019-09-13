@@ -2,7 +2,7 @@ package com.bridgelabz.algorithms;
 
 import java.util.ArrayList;
 
-public class AnagramNumberAndPolindrome {
+public class PrimeAnagramNumberAndPolindrome {
 
 	static boolean isPrime(int n)
 	{
@@ -78,8 +78,8 @@ public class AnagramNumberAndPolindrome {
 		ArrayList al = new ArrayList();
 		for (int i = 2; i < 1000; i++) 
 		{
-			//boolean prime = isPrime(i);
-			if (isPrime(i))// && isPalindrome(String.valueOf(i)))
+			boolean prime = isPrime(i);
+			if (isPrime(i) && isPalindrome(String.valueOf(i)))
 				al.add(i);
 		}
 
@@ -87,7 +87,7 @@ public class AnagramNumberAndPolindrome {
 
 		System.out.println(al);
 
-		//System.out.println("Prime and polindrome numbers are: ");
+		System.out.println("Prime and polindrome numbers are: ");
 		
 		
 		System.out.println("Prime and polindrome  and Anagram numbers within 1000 are: ");

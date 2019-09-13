@@ -1,4 +1,4 @@
-package com.bridgelabz.TestingPrograms;
+package com.bridgelabz.algorithms;
 
 public class DecimalToBinary {
 

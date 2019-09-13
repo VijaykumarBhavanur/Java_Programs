@@ -1,5 +1,7 @@
-package com.bridgelabz.TestingPrograms;
+package com.bridgelabz.algorithms;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BinarySearchString 
@@ -54,7 +56,7 @@ public class BinarySearchString
 				if(i!=arr.length-1)
 					st=st+arr[i]+",";
 				else
-					st=st+arr[i]+"}";
+					st=st+arr[i]+"}\n";
 			}
 		 
 		 System.out.println(st);
@@ -64,27 +66,27 @@ public class BinarySearchString
 	 public static void main(String[] args) throws FileNotFoundException 
 	{
 		
-		/*
-		 * String s1[]={"z", "Edit","File","Navigate","Refactor","Source", "abc"};
-		 * 
-		 * // String s1[]={"Refactor","Source","Navigate","Edit","File"};
-		 * s1=sortStrings(s1); displayString(s1);
-		 * System.out.println(binarySearchString(s1, "File"));
-		 */
-		  
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.println("Enter number of Strings you wish to enter: ");
-
-		int size = scanner.nextInt();
-
-		String arr[] = new String[size];
-
-		for (int i = 0; i < arr.length; i++) 
+		 Scanner scanner = new Scanner( new File("/home/admin1/Desktop/words.txt") );
+		 ArrayList<String> words=new ArrayList<String>();
+		 scanner.useDelimiter(" ");
+		 
+	
+		 
+		 while(scanner.hasNext())
+		 {
+			words.add(scanner.next().replaceAll("\\uFEFF", ""));
+			// System.out.println(scanner.next().replaceAll("\\uFEFF", ""));
+		 }
+		 System.out.println(words);
+		 
+		 String arr[] = new String[words.size()];
+		 
+		
+		for (int j = 0; j < words.size(); j++) 
 		{
-			System.out.println("Enter string: ");
-			arr[i] = scanner.next().trim();
+			arr[j] = words.get(j);
 		}
+		Scanner scanner1 = new Scanner(System.in);
 
 		arr = sortStrings(arr);
 
@@ -92,7 +94,7 @@ public class BinarySearchString
 		displayString(arr);
 
 		System.out.println("Enter string to search:");
-		String input = scanner.next();
+		String input = scanner1.next();
 
 		int index = binarySearchString(arr, input);
 
@@ -100,5 +102,6 @@ public class BinarySearchString
 			System.out.println(input + " found at index: " + index);
 		else
 			System.out.println(input + " not found");
+		 
 	}
 }

@@ -1,33 +1,33 @@
-package com.bridgelabz.TestingPrograms;
+package com.bridgelabz.algorithms;
 
 import java.util.Arrays;
 
-public class MergesortTest 
+public class MergesortString
 {
 	public static void main(String[] args) 
 	{
 	
-		int a[]= {65,2,78,5,101,9,41,23};
+		String[] s= {"logitech","hp","dell","zebion"};
 		
 		int lb=0;
-		int up=a.length-1;
+		int up=s.length-1;
 		
 		System.out.println("Before Sorting: ");
-		System.out.println(Arrays.toString(a));
-		mergeSort(a, lb, up);
+		System.out.println(Arrays.toString(s));
+		mergeSort(s, lb, up);
 	
 		System.out.println("After Sorting: ");
-		System.out.println(Arrays.toString(a));
+		System.out.println(Arrays.toString(s));
 				
 	}
 	
-	public static void merge(int a[],int lb,int mid,int up)
+	public static void merge(String a[],int lb,int mid,int up)
 	{
 		 int n1 = mid - lb + 1; 
 	     int n2 = up - mid; 
 		
-	     int left[]=new int[n1];
-	     int right[]=new int[n2];
+	     String left[]=new String[n1];
+	     String right[]=new String[n2];
 	     
 	     for (int l=0; l<n1;l++) 
 	            left[l] = a[lb + l]; 
@@ -40,7 +40,7 @@ public class MergesortTest
 	        
 	        while (i < n1 && j < n2) 
 	        { 
-	            if (left[i] <= right[j]) 
+	            if (left[i].compareTo(right[j])<=0)
 	            { 
 	                a[k] = left[i]; 
 	                i++; 
@@ -71,7 +71,7 @@ public class MergesortTest
 	        } 
 	    } 
 	
-	public static void mergeSort(int a[],int lb,int up)
+	public static void mergeSort(String a[],int lb,int up)
 	{	
 		if(lb<up)
 		{

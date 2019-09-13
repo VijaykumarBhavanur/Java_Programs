@@ -1,4 +1,4 @@
-package com.bridgelabz.TestingPrograms;
+package com.bridgelabz.algorithms;
 import java.util.Scanner;
 public class VendingMachine 
 {
