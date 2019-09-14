@@ -1,7 +1,6 @@
 package com.bridgelabz.oops;
 
 import com.bridgelabz.datastructures.Queue;
-import com.bridgelabz.datastructures.Queue.Node;
 
 public class QueueTest
 {

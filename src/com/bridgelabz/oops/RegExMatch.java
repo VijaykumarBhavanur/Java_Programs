@@ -13,6 +13,7 @@ public class RegExMatch
 		 String name="Vijaykumar";
 		 String fullName="Vijaykumar Bhavanur";
 		 String mobile="9164480832";
+		 
 		 String date=LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear();
 		 
 		 String[] patterns= {"<<name>>","<<ful.*name>>","X{10}","X{2}/X{2}/X{4}"};
