@@ -214,50 +214,52 @@ public class CommonUtility {
 		 System.out.println(st);
 	 }
 	public static void main(String[] args) {
-		//TemperatureConversion();
-		//monthlyPaymentCalculation();
-		int a[]= {3, 6, 1, 8, 4, 5};
-		String s1[]={"Refactor","Source","Navigate","Edit","File"};
 		
-		long beforeTime=0,afterTime=0;
-		System.out.println("Binary Search Method for Integer");
-		beforeTime=System.nanoTime();
-		binarySearch(a,9);
-		afterTime=System.nanoTime();
-		System.out.println("::::::::::Time elapsed(Nano-seconds) for Binary Search Method for Integer::::::::\n"+(afterTime-beforeTime));
+		  //TemperatureConversion(); //monthlyPaymentCalculation(); 
+			int a[]= {3, 6, 1,  8, 4, 5}; 
+		  String s1[]={"Refactor","Source","Navigate","Edit","File"};
+		  
+		  long beforeTime=0,afterTime=0;
+		  System.out.println("Binary Search Method for Integer");
+		  beforeTime=System.nanoTime(); binarySearch(a,9); afterTime=System.nanoTime();
+		  System.out.
+		  println("::::::::::Time elapsed(Nano-seconds) for Binary Search Method for Integer::::::::\n"
+		  +(afterTime-beforeTime));
+		  
+		  System.out.println("Binary Search Method for String");
+		  beforeTime=System.nanoTime(); binarySearchString(s1,"Search");
+		  afterTime=System.nanoTime(); System.out.
+		  println("::::::::::Time elapsed(Nano-seconds) for Binary Search Method for String::::::::\n"
+		  +(afterTime-beforeTime));
+		  
+		  
+		  System.out.println("Insertion method for Integer");
+		  beforeTime=System.nanoTime(); insertionSort(a); afterTime=System.nanoTime();
+		  System.out.
+		  println("::::::::::Time elapsed(Nano-seconds) for Insertion Method for Integer::::::::\n"
+		  +(afterTime-beforeTime));
+		  
+		  System.out.println("Insertion method for String");
+		  beforeTime=System.nanoTime(); insertionSort(s1); afterTime=System.nanoTime();
+		  System.out.
+		  println("::::::::::Time elapsed(Nano-seconds) for Insertion Method for String::::::::\n"
+		  +(afterTime-beforeTime));
+		  
+		  
+		  System.out.println("Insertion method for Integer");
+		  beforeTime=System.nanoTime(); bubbleSort(a); afterTime=System.nanoTime();
+		  System.out.
+		  println("::::::::::Time elapsed(Nano-seconds) for Bubble Sort Method for Integer::::::::\n"
+		  +(afterTime-beforeTime));
+		  
+		  
+		  System.out.println("Insertion method for String");
+		  beforeTime=System.nanoTime(); bubbleSort(s1); afterTime=System.nanoTime();
+		  System.out.
+		  println("::::::::::Time elapsed(Nano-seconds) for Bubble Sort Method for String::::::::\n"
+		  +(afterTime-beforeTime));
+		 
 		
-		System.out.println("Binary Search Method for String");
-		beforeTime=System.nanoTime();
-		binarySearchString(s1,"Search");
-		afterTime=System.nanoTime();
-		System.out.println("::::::::::Time elapsed(Nano-seconds) for Binary Search Method for String::::::::\n"+(afterTime-beforeTime));
-		
-		
-		System.out.println("Insertion method for Integer");
-		beforeTime=System.nanoTime();
-		insertionSort(a);
-		afterTime=System.nanoTime();
-		System.out.println("::::::::::Time elapsed(Nano-seconds) for Insertion Method for Integer::::::::\n"+(afterTime-beforeTime));
-
-		System.out.println("Insertion method for String");
-		beforeTime=System.nanoTime();
-		insertionSort(s1);
-		afterTime=System.nanoTime();
-		System.out.println("::::::::::Time elapsed(Nano-seconds) for Insertion Method for String::::::::\n"+(afterTime-beforeTime));
-		
-		
-		System.out.println("Insertion method for Integer");
-		beforeTime=System.nanoTime();
-		bubbleSort(a);
-		afterTime=System.nanoTime();
-		System.out.println("::::::::::Time elapsed(Nano-seconds) for Bubble Sort Method for Integer::::::::\n"+(afterTime-beforeTime));
-		
-		
-		System.out.println("Insertion method for String");
-		beforeTime=System.nanoTime();
-		bubbleSort(s1);
-		afterTime=System.nanoTime();
-		System.out.println("::::::::::Time elapsed(Nano-seconds) for Bubble Sort Method for String::::::::\n"+(afterTime-beforeTime));
 	}
 
 }

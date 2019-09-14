@@ -1,5 +1,6 @@
 package com.bridgelabz.oops;
 
+/*Custom class with for storing stock-detail*/
 public class Stock 
 {
 	String stockName;

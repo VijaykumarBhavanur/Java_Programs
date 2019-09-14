@@ -11,13 +11,17 @@ import org.json.simple.parser.ParseException;
 public class StockPortpolio 
 {
 
-	static Stock[] stock;
+	static Stock[] stock; //Array to hold list of stocks
 
+	
+	/*Method to calculate value of Particular Stock*/
     static public double valueOfStock(Stock stock)
 	{
 			return stock.numberofShare*stock.sharePrice;
 	}
 
+    
+    /*Method to calculate Total value of Stocks(sum of all stock values)*/
 	static public double getTotalStockValue() 
 	{
 		 double totalStockValue=0.0;
@@ -29,6 +33,8 @@ public class StockPortpolio
 		return totalStockValue;
 	}
 
+	
+	/*Method to create new stock from  json-object read from json file*/
 	static public Stock createStock(JSONObject json) 
 	{
 		String stockName = (String) json.get("stockName");
@@ -39,6 +45,7 @@ public class StockPortpolio
 	}
 
 	
+	/*Method to printStockReport (Each stock-name,number of shares, Price-Per-Share and StockValue of each stock )*/
 	static public void printStockReport(Stock[] stock)
 	{
 		System.out.println("  Stock-Name       Number-Of-Shares    Price-Per-Share        StockValue    ");
@@ -54,7 +61,7 @@ public class StockPortpolio
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException 
 	{
 		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(new FileReader("/home/admin1/Desktop/stock.json"));
+		Object obj = parser.parse(new FileReader("/home/admin1/Desktop/stock.json")); //Reading stock details from json-file
 		JSONObject json = (JSONObject) obj;
 
 		JSONArray a = (JSONArray) json.get("STOCK");
@@ -62,32 +69,17 @@ public class StockPortpolio
 
 		for (int i = 0; i < a.size(); i++) 
 		{
+			//Creating stock object from json-object
 			Stock st = createStock((JSONObject) a.get(i));
-			stock[i] = st;
+			stock[i] = st;  //Storing each stock in array
 		}
 
 		  
-		/*
-		 * System.out.println("\nDisplaying Stock array: "); for (int i = 0; i
-		 * <stock.length; i++) {
-		 * System.out.println("StockName: "+stock[i].stockName+":::::numberOfPrice: "
-		 * +stock[i].numberofShare+":::::::sharePrice: "+stock[i].sharePrice); }
-		 * 
-		 * 
-		 * System.out.
-		 * println("\n:::::::::::::::::::::::::::::Displaying value of Each stock::::::::::::::::::::\n"
-		 * ); for (int i = 0; i <stock.length; i++) {
-		 * System.out.println("\nStockName: "+stock[i].stockName+" StockValue: "
-		 * +valueOfStock(stock[i]));
-		 * 
-		 * }
-		 */
-		
+		  //Printing Stock-report
 		  printStockReport(stock);
 		  
 		  System.out.println("\n:::::::Total Stock Value::::::::");
 		  System.out.println("         "+getTotalStockValue());
-		  
 	}
 
 }
