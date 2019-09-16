@@ -95,6 +95,9 @@ static	String isWon(char[][]array)
 		char array[][] = { { '*', 'X', 'X' }, { 'X', '0', '0' }, { '0', '*', '*' } };
 		
 		System.out.println(isWon(array));
+		
+		
+		
 	}
 		  
 		

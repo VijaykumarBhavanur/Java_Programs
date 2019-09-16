@@ -189,6 +189,7 @@ public class PlayCards
 	 
 	   System.out.println("\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	   System.out.println("\n Adding Player1 cards to Queue::::::::::");
+	  
 	   QueueTest Q1=new QueueTest();
 	   Q1.addLast(new Player("Player1",player1));
 	   Q1.display();
@@ -217,6 +218,22 @@ public class PlayCards
 	   Q4.addLast(new Player("Player4",player4));
 	   Q4.display();
 	   System.out.println();
+	   
+	   
+	   
+	   System.out.println("-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/");
+	   
+	   QueueTest mainPlayer =new QueueTest();
+	   mainPlayer.addLast(Q1);
+	   mainPlayer.addLast(Q2);
+	   mainPlayer.addLast(Q3);
+	   mainPlayer.addLast(Q4);
+	   
+	   mainPlayer.display(mainPlayer);
+	   
+	   
+	   
+	   
 	   
 	}
 }

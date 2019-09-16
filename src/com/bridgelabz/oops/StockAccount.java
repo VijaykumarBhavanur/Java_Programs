@@ -18,6 +18,8 @@ public class StockAccount
 	static TreeMap<Integer, Customer>customerList=new TreeMap<Integer, Customer>();
 	static TreeMap<Integer, Company> companyData=new TreeMap<Integer, Company>();
 	static TreeMap<Integer, Transaction> transactionData=new TreeMap<Integer, Transaction>();
+	
+	
 	int transactionIndex=1;
 	/* Method to create stock_account for a customer*/
 	public   TreeMap createStockAccount(String file) throws FileNotFoundException, IOException, ParseException
@@ -33,7 +35,9 @@ public class StockAccount
 			String name=(String)j.get("Name");
 			double accountBalance=Double.valueOf(j.get("AccountBalance").toString());
 			int sharePurchased=Integer.valueOf(j.get("SharePurchased").toString());
+			
 			Customer customer=new Customer(code++,name, accountBalance, sharePurchased);
+			
 			
 			customerList.put(customer.AccountId,customer);
 			System.out.println("New stock account created with details: \n");
@@ -54,6 +58,7 @@ public class StockAccount
 			String companyName=(String)j.get("companyName");
 			int numberofShareAvailable=Integer.valueOf(j.get("numberofShareAvailable").toString());
 			double eachSharePrice=Double.valueOf(j.get("eachSharePrice").toString());
+			
 			Company company=new Company(serialNo,companyName,numberofShareAvailable,eachSharePrice);
 			
 			companyData.put(company.serialNo,company);
@@ -91,7 +96,7 @@ public class StockAccount
 				while(noOfShares>company.numberofShareAvailable)
 				{
 					System.out.println(noOfShares+" shares are not available for company "+company.companyName+"\nNumber of shares available are: "+company.numberofShareAvailable);
-					System.out.println("Enter number of shares <= "+company.numberofShareAvailable);
+					System.out.println("Enter number of shares <= "+company.numberofShareAvailable+"\n");
 					noOfShares=scanner.nextInt();
 				}
 		}
@@ -102,13 +107,13 @@ public class StockAccount
 				System.out.println("Insuffient account balance: ");
 				int possibleShare=(int) (customer.accountBalance/company.eachSharePrice);
 				System.out.println("You can purchase maximum: "+possibleShare+" shares for this company");
-				System.out.println("Enter number of shares <= "+possibleShare);
+				System.out.println("Enter number of shares <= "+possibleShare+"\n");
 				noOfShares=scanner.nextInt();
 			}
 			
 		}
 			System.out.println("Before transaction:\n customer account balance: "+customer.accountBalance);
-			System.out.println("share purchased: "+customer.sharePurchased);
+			System.out.println("share purchased: "+customer.sharePurchased+"\n");
 			
 			
 			/* Updating number of Share purchased of customer*/
@@ -125,7 +130,7 @@ public class StockAccount
 			companyList.get(serial).numberofShareAvailable=companyList.get(serial).numberofShareAvailable-noOfShares;
 			
 			System.out.println("After transaction:\n customer account balance: "+customer.accountBalance);
-			System.out.println("share purchased: "+customer.sharePurchased);
+			System.out.println("share purchased: "+customer.sharePurchased+"\n\n");
 		
 			Transaction transaction=new Transaction(company.companyName,customer.name,noOfShares,0,noOfShares*company.eachSharePrice);
 			transactionData.put(transactionIndex++, transaction);
@@ -163,7 +168,7 @@ public class StockAccount
 					while(noOfShares>customer.sharePurchased)
 					{
 						System.out.println(noOfShares+" shares are not available in your account \nNumber of shares available are: "+customer.sharePurchased);
-						System.out.println("Enter number of shares <= "+customer.sharePurchased);
+						System.out.println("Enter number of shares <= "+customer.sharePurchased+"\n");
 						noOfShares=scanner.nextInt();
 					}
 			}
@@ -171,7 +176,7 @@ public class StockAccount
 				
 			
 				System.out.println("Before transaction:\n customer account balance: "+customer.accountBalance);
-				System.out.println("share purchased: "+customer.sharePurchased);
+				System.out.println("share purchased: "+customer.sharePurchased+"\n");
 				
 				
 				/* Updating number of Share purchased of customer*/
@@ -188,7 +193,7 @@ public class StockAccount
 				companyList.get(serial).numberofShareAvailable=companyList.get(serial).numberofShareAvailable+noOfShares;
 				
 				System.out.println("After transaction:\n customer account balance: "+customer.accountBalance);
-				System.out.println("share purchased: "+customer.sharePurchased);
+				System.out.println("share purchased: "+customer.sharePurchased+"\n");
 				
 				
 				Transaction transaction=new Transaction(company.companyName,customer.name,0,noOfShares,noOfShares*company.eachSharePrice);
@@ -205,7 +210,7 @@ public class StockAccount
 		for (Object object : s)
 		{
 			Company c=(Company)companyData.get(object);
-			System.out.print("   "+c.serialNo+"             "+c.companyName+"                   "+c.numberofShareAvailable+"                 "+c.eachSharePrice+"\n");
+			System.out.print("   "+c.serialNo+"             "+c.companyName+"                   "+c.numberofShareAvailable+"                 "+c.eachSharePrice+"\n\n");
 		}
 	}
 	
@@ -218,7 +223,7 @@ public class StockAccount
 		for (Object object : s)
 		{
 			Customer c=(Customer)customerList.get(object);
-			System.out.print("   "+c.AccountId+"              "+c.name+"                    "+c.sharePurchased+"                  "+c.accountBalance+"\n");
+			System.out.print("   "+c.AccountId+"              "+c.name+"                    "+c.sharePurchased+"                  "+c.accountBalance+"\n\n");
 		}
 	}
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException
@@ -276,7 +281,6 @@ public class StockAccount
 		
 		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
 		System.out.println("\n\n");
-		
 		
 		
 		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*Transaction report*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");

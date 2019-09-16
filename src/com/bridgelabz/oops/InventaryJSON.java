@@ -20,7 +20,7 @@ public class InventaryJSON
 	{
 		InventaryJSON inventaryJSON=null;
 		
-		JSONObject json1=(JSONObject) json.get(key);
+		JSONObject json1=(JSONObject) json. get(key);
 		String name= (String) json1.get("name");
 		double weight=Double.valueOf((String) json1.get("weightInKg"));
 		double price=Double.valueOf((String) json1.get("priceInRupees"));

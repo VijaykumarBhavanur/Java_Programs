@@ -43,7 +43,28 @@ public class QueueTest
 					//System.out.println("EnQueued: "+n.data);
 				}
 		 }
+		 
 	}
+		 void addLast(QueueTest queue)
+			{
+				
+					 Node n=new Node(queue); //creating new-node from data
+					 Node t=head;
+						
+						if(head==null)
+						{
+							head=new Node("Players");
+						}
+						else
+						{
+							while(t.next!=null)
+							{
+								t=t.next;
+							}
+							
+							t.next=n;
+						}
+			}
 
 	
 	 /*Method to display queue elements*/
@@ -73,6 +94,32 @@ public class QueueTest
 		}
 	}
 	
+	void display(QueueTest queue)
+	{
+		QueueTest.Node t = head;
+		//If head 'null' then  List is empty
+		if (head == null)    
+		{
+			System.out.println("No elements to display");
+			return;
+		}
+		
+		while (t != null)      
+		{
+			if(!(t.data instanceof String))
+			{
+				QueueTest Q=(QueueTest)t.data;
+				Q.display();
+			}
+			else
+				System.out.print(t.data+"--->");
+			
+			
+				t = t.next;
+		}
+		
+	}
+		
 	 boolean deleteFirst(Queue queue)
 		{
 			Node t=null;
