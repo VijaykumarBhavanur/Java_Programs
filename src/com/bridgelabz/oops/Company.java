@@ -1,13 +1,21 @@
 package com.bridgelabz.oops;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Company 
 {
+	@JsonProperty
 	int serialNo;
+	@JsonProperty
 	String companyName;
+	@JsonProperty
 	int numberofShareAvailable;
+	@JsonProperty
 	double eachSharePrice;
 
-	
+	public Company() {
+		
+	}
 	public Company(int serialNo,String companyName, int numberofShareAvailable, double eachSharePrice) 
 	{
 		this.serialNo=serialNo;

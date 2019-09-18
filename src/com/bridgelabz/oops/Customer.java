@@ -6,7 +6,10 @@ public class Customer
 	String name;
 	double accountBalance;
 	int sharePurchased;
-	
+	Customer()
+	{
+		
+	}
 	public Customer(int AccountId,String name, double accountBalance, int sharePurchased) 
 	{
 		this.AccountId=AccountId;
