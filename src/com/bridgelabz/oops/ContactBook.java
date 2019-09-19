@@ -2,6 +2,7 @@ package com.bridgelabz.oops;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
@@ -43,12 +44,11 @@ public class ContactBook
 	public void displayContacts()
 	{
 		Set<Integer> keys=contactList.keySet();
-		System.out.println("==============================================================================================================");
 		for (Integer integer : keys)
 		{
-			System.out.print("id:"+contactList.get(integer).id+"   firstName:"+contactList.get(integer).firstName
-					         +"   lastName:"+contactList.get(integer).lastName+"    city:"+contactList.get(integer).city
-					         +"    zipCode:"+contactList.get(integer).zipCode+"    mobileNumber:"+contactList.get(integer).mobileNumber+"\n\n");
+			System.out.print("id:"+contactList.get(integer).id+"\t"+"firstName:"+contactList.get(integer).firstName+"\t"
+					         +"lastName:"+contactList.get(integer).lastName+"\t"+"city:"+contactList.get(integer).city+"\t"
+					         +"zipCode:"+contactList.get(integer).zipCode+"\t"+"mobileNumber:"+contactList.get(integer).mobileNumber+"\t"+"\n\n");
 		}
 		System.out.println();
 	}
@@ -58,11 +58,19 @@ public class ContactBook
 		
 		ObjectMapper mapper=new ObjectMapper();
 		
-	    contacts=mapper.readValue(file,Contact[].class);
-	    for (int i = 0; i < contacts.length; i++) 
-	    {
-	    	contactList.put(contacts[i].id,contacts[i]);
-		}
+	    //contacts=mapper.readValue(file,Contact[].class);
+	    
+	    java.util.List<Contact> contact=Arrays.asList(mapper.readValue(file,Contact[].class));
+	    
+	    
+	    System.out.println(contact.get(0).getCity());
+	    contact.get(0).setCity("Pune");
+	    System.out.println(contact.get(0).getCity());
+	    
+		/*
+		 * for (int i = 0; i < contacts.length; i++) {
+		 * contactList.put(contacts[i].id,contacts[i]); }
+		 */
 	    
 	}
 	
@@ -171,22 +179,26 @@ public class ContactBook
 		contactBook.writeContact();
 	}
 	
-	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException 
+	public static void main(String[] args)
 	{
 		try
 		{
 		contactBook.readContacts();
-		contactBook.displayContacts();
-		contactBook.addContact();
-		contactBook.deleteContact(1);
-		contactBook.updateContact();
-		System.out.println("Contact-List after updation: ");
-		contactBook.displayContacts();
+		//contactBook.displayContacts();
+		//contactBook.addContact();
+		//contactBook.deleteContact(1);
+		//contactBook.updateContact();
+		//System.out.println("Contact-List after updation: ");
+		//contactBook.displayContacts();
 		
 		}
 		catch (InputMismatchException e)
 		{
 			System.out.println("Invalid input");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}	
 }
