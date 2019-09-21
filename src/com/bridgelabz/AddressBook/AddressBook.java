@@ -1,6 +1,5 @@
-package com.bridgelabz.TestingPrograms;
+package com.bridgelabz.AddressBook;
 import java.io.File;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,24 +7,39 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import com.bridgelabz.oops.Contact;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class TestClassJson 
+public class AddressBook 
 {
 	static Scanner scanner=new Scanner(System.in);
 	static java.util.List<Contact> contact;
 	static File file;
 	static String currentAddressBook;
 
+	/* Method to add new contact to address-book*/
+	
 	public static void addContact() throws JsonParseException, JsonMappingException, IOException
 	{
 		System.out.println("Adding contact........");
-		Contact newContact=new Contact(contact.size()+1,"Jay","Kumar","Jaipur",200675,7897474578l);
+		System.out.println("Enter first name: ");
+		String fname=scanner.next();
+		
+		System.out.println("Enter last name: ");
+		String lname=scanner.next();
+		
+		System.out.println("Enter city: ");
+		String city=scanner.next();
+		
+		System.out.println("Enter zipcode: ");
+		int zip=scanner.nextInt();
+		
+		System.out.println("Enter Mobile number: ");
+		long mobile=scanner.nextLong();
+		
+		Contact newContact=new Contact(contact.size()+1,fname,lname,city,zip,mobile);
 		contact.add(newContact);
 		System.out.println("After adding new Contact.........");
 		System.out.println("Saving address book.......");
@@ -33,8 +47,15 @@ public class TestClassJson
 		
 	}
 	
+	/* Method to edit an existing contact of address-book*/
 	public static void updateContact() throws JsonGenerationException, JsonMappingException, IOException
 	{
+		if(file.length()==0)
+		{
+			System.out.println("Address-Book Empty! No contacts to update");
+			mainMenu();
+		}
+		
 		System.out.println("Updating contact........");
 		System.out.println("Enter contact-Id to update: ");
 		int id=scanner.nextInt();
@@ -129,6 +150,8 @@ public class TestClassJson
 		
 	}
 	
+	
+	/* Method to maintain sequence of Id after deletion of contact from address-book*/
 	public static void updateId() 
 	{
 		int id=1;
@@ -139,14 +162,24 @@ public class TestClassJson
 		}
 	}
 	
+	
+	/* Method to save address-book to json file*/
 	public static void saveAddressBook() throws JsonGenerationException, JsonMappingException, IOException
 	{
 		ObjectMapper mapper=new ObjectMapper();
 		mapper.writeValue(file, contact);
 	}
 	
+	/*method to delete a contact from address-book*/
 	public static void deleteContact() throws JsonGenerationException, JsonMappingException, IOException
 	{
+
+		if(file.length()==0)
+		{
+			System.out.println("Address-Book Empty! No contacts to delete");
+			mainMenu();
+		}
+		
 		System.out.println("Deleting contact........");
 		System.out.println("Enter contact-Id to be deleted: ");
 		int id=scanner.nextInt();
@@ -163,15 +196,17 @@ public class TestClassJson
 		showAddressBook(currentAddressBook);
 	}
 	
+	/*Method to terminate program*/
     public static void quit()
 	{
 		System.exit(0);
 	}
 	
+    /*Method to Show available Options*/
     public static void  showOptions() throws IOException
 	{
 		System.out.println("\nEnter your choice: ");
-		System.out.println("1.Add Contact\n2.Update Contact\n3.Delete Contact\n4.Save Address Book\n5.Save Address Book As\n6.Main Menu\n7.Quit");
+		System.out.println("1.Add Contact\n2.Update Contact\n3.Delete Contact\n4.Sort Contacts By First name\n5.Sort Contacts By Zip code\n6.Save Address Book\n7.Save Address Book As\n8.Main Menu\n9.Quit");
 		char choice=scanner.next().charAt(0);
 		
 		switch(choice)
@@ -184,25 +219,35 @@ public class TestClassJson
 				
 		case '3': deleteContact();
 				break;
-				
-		case '4': saveAddressBook();
-				 break;
-		case '5': saveAddressBookAs();
-				 break;
-		case '6': mainMenu();
+		
+		case '4': sortByFirstName();
 				  break;
-		case '7': quit();
+				  
+		case '5': sortByZipCode();
+				  break;
+				  
+		case '6': saveAddressBook();
+				 break;
+				 
+		case '7': saveAddressBookAs();
+				 break;
+				 
+		case '8': mainMenu();
+				  break;
+				  
+		case '9': quit();
 					break;
 		default: System.out.println("Invalid output");
 		}
 	}
 	
+    /*Method to display main-menu*/
 	static void mainMenu() throws IOException
 	{
-		System.out.println("=+=+=+=+=+=+=+=+=+=Welcome to Address Book+=+=+=+=+=+=+=+=+=+==+\n\n");
+		System.out.println("\n=+=+=+=+=+=+=+=+=+=Welcome to Address Book Management System=+=+=+=+=+=+=+=+=+=\n\n");
 		System.out.println("Enter your choice: ");
 		
-		System.out.println("1.Create new Address Book\n2.Open Existing Address Book");
+		System.out.println("1.Create new Address Book\n2.Open Existing Address Book\n3.Quit");
 		char c=scanner.next().charAt(0);
 			switch (c)
 			{
@@ -210,9 +255,13 @@ public class TestClassJson
 			case '1': System.out.println("Enter name for new AddressBook: ");
 					  String name=scanner.next();
 					  
-					  File file =new File("/home/admin1/Desktop/ContactList/"+name+".json");
-					  
-					  if(file.createNewFile())
+					  file =new File("/home/admin1/Desktop/ContactList/"+name+".json");
+			/*
+			 * while(!file.createNewFile()) {
+			 * System.out.println(name+" Address-Book already exist! choose some-other Name"
+			 * ); name=scanner.next(); file =new
+			 * File("/home/admin1/Desktop/ContactList/"+name+".json"); }
+			 */
 					  System.out.println("New Address-book created: "+name+".json");
 					  contact=new ArrayList<Contact>();
 					  currentAddressBook=name+".json";
@@ -236,17 +285,23 @@ public class TestClassJson
 					 showAddressBook(currentAddressBook);
 					 showOptions();
 					 break;
-					 
+			case '3': quit();
 				default: System.out.println("Invalid Input");
 				     break;
 			}
 	}
 	
+	/*Method to display all contacts available in address-book*/
 	public static void showAddressBook(String book) throws JsonParseException, JsonMappingException, IOException
 	{
 		ObjectMapper mapper=new ObjectMapper();
 		file =new File("/home/admin1/Desktop/ContactList/"+book);
 		
+		if(file.length()==0)
+		{
+			System.out.println("Address-Book Empty No contacts to display");
+			mainMenu();
+		}
 	    contact=new ArrayList<Contact>(Arrays.asList(mapper.readValue(file,Contact[].class)));
 	    
 	    for (Contact contact2 : contact)
@@ -256,6 +311,7 @@ public class TestClassJson
 		}
 	}
 	
+	/*Method to save address-book to a different file*/
 	public static void saveAddressBookAs() throws JsonGenerationException, JsonMappingException, IOException
 	{
 		System.out.println("Enter file-name: ");
@@ -271,6 +327,7 @@ public class TestClassJson
 			
 	}
 	
+	/*Method to sort contacts of address-book by first-name*/
 	public static void sortByFirstName()
 	{
 		Comparator<Contact> compareByFname = (Contact o1, Contact o2) -> o1.getFirstName().compareTo( o2.getFirstName() );
@@ -285,6 +342,7 @@ public class TestClassJson
 		}
 	}
 	
+	/*Method to sort contacts of address-book by zipCode*/
 	public static void sortByZipCode()
 	{
 		Comparator<Contact> compareByZip = (Contact o1, Contact o2) -> new Integer(o1.getZipCode()).compareTo(new Integer(o2.getZipCode()));
@@ -299,11 +357,9 @@ public class TestClassJson
 		}
 	}
 	
+	/*Starting point of Application*/
 	public static void main(String[] args) throws IOException
 	{
 		mainMenu();
-		//showAddressBook("AddressBook1.json");
-		//sortByFirstName();
-		//sortByZipCode();
 	}
 }

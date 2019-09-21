@@ -18,8 +18,48 @@ public class Queue
 		}
 		
 	}
-	
 	 Node head;
+	 
+	 
+	 Object get(int index)
+	 {
+		 Object data=null;
+		 int i=0;
+		 Node t=head;
+		 while(t!=null)
+		 {
+			 if(i==index)
+			 {
+				 data=t.data;
+				 return data;
+			 }
+			 t=t.next;
+			 i++;
+		 }
+		 return data;
+	 }
+	 
+	 /*Method to return number of elements in queue*/
+	 int size()
+	 {
+		 int count=0;
+		 Node t=head;
+		 if(head==null)
+			{
+				return count;
+			}
+			else
+			{
+				while(t!=null)
+				{
+					count++;
+					t=t.next;
+				}
+				
+				return count;
+			}
+	 }
+	
 	 /* Method to add new-node at the end of Linked List*/
 	 boolean addLast(Queue queue,Object num)
 	{

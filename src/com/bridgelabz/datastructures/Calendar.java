@@ -74,14 +74,8 @@ public class Calendar
 		
 	}
 	
-	public static void main(String[] args) 
+	public static Object[][] getCalendar(int month,int year)
 	{
-		Scanner scanner=new Scanner(System.in);
-		System.out.println("Enter month(1-12) & year(YYYY) to display calendar: ");
-		int month=scanner.nextInt();
-		int year=scanner.nextInt();
-		
-		
 		int dayCode=getDayOf1stDay(month,year); // Eg.Get day of 1st Sep-2019 Sunday if 0,Monday if 1 soon...
 		System.out.println("DayCode: "+dayCode);
 		Object calendar[][]=new Object[7][7];
@@ -96,7 +90,7 @@ public class Calendar
 		
 		
 		int days[]={31,28,31,30,31,30,31,31,30,31,30,31};
-		String[] monthName={"January","February","March","April","May","June","July","August","September","October","November","December"};
+		
 		
 		int date=days[month-1];
 		System.out.println("No of days in "+month+" month : "+date);
@@ -127,6 +121,19 @@ public class Calendar
 				else calendar[i][j]="  ";
 			}
 		}
+		return calendar;
+	}
+	
+	public static void main(String[] args) 
+	{
+		Scanner scanner=new Scanner(System.in);
+		System.out.println("Enter month(1-12) & year(YYYY) to display calendar: ");
+		int month=scanner.nextInt();
+		int year=scanner.nextInt();
+		
+		String[] monthName={"January","February","March","April","May","June","July","August","September","October","November","December"};
+		Object cal[][]=getCalendar(month, year);
+		
 		
 		/*Display Calendar*/
 		System.out.println();
@@ -135,7 +142,7 @@ public class Calendar
 		{
 			for (int j = 0; j <7; j++) 
 			{
-				System.out.print(calendar[i][j]+" ");
+				System.out.print(cal[i][j]+" ");
 			}
 			System.out.println();
 		}

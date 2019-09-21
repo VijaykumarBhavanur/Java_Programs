@@ -12,7 +12,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.bridgelabz.AddressBook.Contact;
 public class ContactBook 
 {
 	
@@ -46,9 +46,9 @@ public class ContactBook
 		Set<Integer> keys=contactList.keySet();
 		for (Integer integer : keys)
 		{
-			System.out.print("id:"+contactList.get(integer).id+"\t"+"firstName:"+contactList.get(integer).firstName+"\t"
-					         +"lastName:"+contactList.get(integer).lastName+"\t"+"city:"+contactList.get(integer).city+"\t"
-					         +"zipCode:"+contactList.get(integer).zipCode+"\t"+"mobileNumber:"+contactList.get(integer).mobileNumber+"\t"+"\n\n");
+			System.out.print("id:"+contactList.get(integer).getId()+"\t"+"firstName:"+contactList.get(integer).getFirstName()+"\t"
+					         +"lastName:"+contactList.get(integer).getLastName()+"\t"+"city:"+contactList.get(integer).getCity()+"\t"
+					         +"zipCode:"+contactList.get(integer).getZipCode()+"\t"+"mobileNumber:"+contactList.get(integer).getMobileNumber()+"\t"+"\n\n");
 		}
 		System.out.println();
 	}

@@ -1,21 +1,21 @@
-package com.bridgelabz.oops;
+package com.bridgelabz.AddressBook;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Contact {
 
 	@JsonProperty
-	int id;
+    private	int id;
 	@JsonProperty
-	String firstName;
+	private String firstName;
 	@JsonProperty
-	String lastName;
+	private String lastName;
 	@JsonProperty
-	String city;
+	private String city;
 	@JsonProperty
-	int zipCode;
+	private int zipCode;
 	@JsonProperty
-	long mobileNumber;
+	private long mobileNumber;
 	
 	public Contact()
 	{
