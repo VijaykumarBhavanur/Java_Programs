@@ -1,34 +1,40 @@
 package com.bridgelabz.clinique;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Doctor 
 {
 	@JsonProperty
-	int id;
+	private int id;
 	@JsonProperty
-	String name;
+	private String name;
 	@JsonProperty
-	String specialization;
+	private  String specialization;
 	@JsonProperty
-	String availability;
+	private String availability;
 	
 	
 	@JsonIgnoreProperties
-	int appointCount;
+	private int appointCount=0;
+	
+	@JsonIgnoreProperties
+	private ArrayList<Patient>appointPatient=new ArrayList<Patient>();
 	
 	public Doctor()
 	{
 		
 	}
-	public Doctor(int id, String name, String specialization, String availability, int appointCount) 
+	public Doctor(int id, String name, String specialization, String availability, int appointCount,ArrayList<Patient>appointPatient) 
 	{
 		this.id = id;
 		this.name = name;
 		this.specialization = specialization;
 		this.availability = availability;
 		this.appointCount = appointCount;
+		this.appointPatient=appointPatient;
 	}
 
 	public int getId() {
@@ -68,7 +74,13 @@ public class Doctor
 
 	@Override
 	public String toString() {
-		return "Doctor_Id=" + id + "    name=" + name + "    specialization=" + specialization;
+		return "Doctor_Id=" + id + "    name=" + name + "    specialization=" + specialization+ "    availability=" + availability;
+	}
+	public ArrayList<Patient> getAppointPatient() {
+		return appointPatient;
+	}
+	public void setAppointPatient(ArrayList<Patient> appointPatient) {
+		this.appointPatient = appointPatient;
 	}
 	
 	

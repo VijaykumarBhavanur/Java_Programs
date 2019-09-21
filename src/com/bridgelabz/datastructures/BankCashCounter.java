@@ -30,7 +30,7 @@ public class BankCashCounter
 	}
 	
 	/* Maintaining Outstanding balance in head-node*/
-	Node head=new Node(1000.00);  //Initial bank balance 1000
+	Node head=new Node(10000.00);  //Initial bank balance 1000
 	
 	/*Method to add new transaction to queue*/
 	boolean add(Transaction data)

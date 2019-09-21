@@ -1,10 +1,13 @@
 package com.bridgelabz.clinique;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -13,223 +16,302 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Hospital 
 {
+	/* File containing list of doctors */
 	static File doctorFile;
+
+	/* File containing list of patient */
 	static File patientFile;
-	static List<Doctor>doctorList;
-	static List<Patient>patientList;
-	
-	static Map<String, Integer>popularDoctor=new TreeMap<String, Integer>();
-	static Map<String, Integer>popularSpecialization=new TreeMap<String, Integer>();
-	
-	static List<Doctor> getAllDoctors() throws JsonParseException, JsonMappingException, IOException
+
+	/* List of doctors */
+	static List<Doctor> doctorList;
+
+	/* List of patient */
+	static List<Patient> patientList;
+
+	/*
+	 * Map with doctor id as key and noumberOfPatientCount as value to maintain
+	 * popularDoctor
+	 */
+	static Map<Integer, Integer> popularDoctor = new TreeMap<Integer, Integer>();
+
+	/*
+	 * Map with Specialization as key and noumberOfPatientCount as value to maintain
+	 * popular Specialization
+	 */
+	static Map<String, Integer> popularSpecialization = new TreeMap<String, Integer>();
+
+	/*
+	 * Map with doctorId as key and list of patients as value to maintain
+	 * appointment data
+	 */
+	static Map<Integer, ArrayList<Patient>> appointment = new TreeMap<Integer, ArrayList<Patient>>();
+
+	static Scanner scanner = new Scanner(System.in);
+
+	static void displayAllDoctors()
 	{
-		ObjectMapper mapper=new ObjectMapper();
-		doctorFile=new File("/home/admin1/Desktop/Hospital/doctor.json");
-		
-		if(doctorFile.length()==0)
-		{
-			System.out.println("No record found");
-		}
-		
-		
-		doctorList=new ArrayList<Doctor>(Arrays.asList(mapper.readValue(doctorFile, Doctor[].class)));
-		
 		for (Doctor doctor : doctorList)
 		{
-			System.out.println(doctor);
+			System.out.format("DOCTOR_ID:%2s      Name:%-10s      Speciality:%-10s      Availability:%-1s",doctor.getId(),doctor.getName(),doctor.getSpecialization(),doctor.getAvailability()+"\n\n");
 		}
-		
-		
-		/*Logic used to check popularity*/
-		
-		for (Doctor doctor : doctorList) 
-		{
-			popularDoctor.put(doctor.getName(), 0);
-			popularSpecialization.put(doctor.getSpecialization(), 0);
-		}
-		
-		
-		
-		return doctorList;
 	}
 	
-	static List<Patient> getAllPatients() throws JsonParseException, JsonMappingException, IOException
+	static void displayAllPatients()
 	{
-	
-		patientFile=new File("/home/admin1/Desktop/Hospital/patient.json");
-		
-		if(patientFile.length()==0)
-		{
-			System.out.println("No record found");
-		}
-		
-		 ObjectMapper mapper=new ObjectMapper();
-         patientList=new ArrayList<Patient>(Arrays.asList(mapper.readValue(patientFile,Patient[].class)));
-		
 		for (Patient patient : patientList) 
 		{
-				System.out.println(patient);
+			System.out.format("PATIENT_ID:%2s      Name:%-10s      Age:%-2s      Mobile:%-1s    Desease:%-1s",patient.getId(),patient.getName(),patient.getAge(),patient.getMobileNumber(),patient.getDesease()+"\n\n");
 		}
-		return patientList;
 	}
 	
-	static List<Doctor> getDoctorByName(String name)
+	static List<Doctor> getAllDoctors() throws JsonParseException, JsonMappingException, IOException 
 	{
-		System.out.println("searching name:::::"+name);
-		List<Doctor>docByname=new ArrayList<Doctor>();
-		
-		for (Doctor doctor : doctorList)
+		ObjectMapper mapper = new ObjectMapper();
+		doctorFile = new File("/home/admin1/Desktop/Hospital/doctor.json");
+
+		if (doctorFile.length() == 0) 
 		{
-			if(doctor.getName().contains(name))
+			System.out.println("No record found");
+		}
+		
+		//Reading all doctor details from JSON File
+		doctorList = new ArrayList<Doctor>(Arrays.asList(mapper.readValue(doctorFile, Doctor[].class)));
+
+		/* Logic used to check popularity */
+
+		for (Doctor doctor : doctorList) 
+		{
+			popularDoctor.put(doctor.getId(), 0);
+			popularSpecialization.put(doctor.getSpecialization(), 0);
+		}
+
+		return doctorList;
+	}
+
+	static List<Patient> getAllPatients() throws JsonParseException, JsonMappingException, IOException {
+
+		patientFile = new File("/home/admin1/Desktop/Hospital/patient.json");
+
+		if (patientFile.length() == 0) 
+		{
+			System.out.println("No record found");
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		//Reading all Patients from JSON File
+		patientList = new ArrayList<Patient>(Arrays.asList(mapper.readValue(patientFile, Patient[].class)));
+		return patientList;
+	}
+
+	static List<Doctor> getDoctorByName(String name) 
+	{
+		List<Doctor> docByname = new ArrayList<Doctor>();
+
+		for (Doctor doctor : doctorList) 
+		{
+			if (doctor.getName().contains(name)) 
 			{
-				System.out.println("found doctor::::: with name:::::"+doctor.getName());
 				docByname.add(doctor);
 			}
 		}
 		return docByname;
 	}
-	
-	static int getDoctorByID(int id)
+
+	static Doctor getDoctorByID(int id) 
 	{
-		System.out.println("searching ID:::::"+id);
-		
-		for (Doctor doctor : doctorList)
+		for (Doctor doctor : doctorList) 
 		{
-			
-			if(doctor.getId()==id)
+			if (doctor.getId() == id) 
 			{
-				System.out.println("found doctor:::with ID:::::::"+doctor.getId());
-				return doctor.id;
+				return doctor;
 			}
 		}
-		return 0;
+		return null;
 	}
 
-	static List<Doctor> getDoctorBySpecialization(String spec)
+	static List<Doctor> getDoctorBySpecialization(String spec) 
 	{
-		System.out.println("searching Specialization:::::"+spec);
-		
-		List<Doctor>docBySpec=new ArrayList<Doctor>();
-		for (Doctor doctor : doctorList)
+		List<Doctor> docBySpec = new ArrayList<Doctor>();
+		for (Doctor doctor : doctorList) 
 		{
-			
-			if(doctor.getSpecialization().equals(spec))
+			if (doctor.getSpecialization().equals(spec))
 			{
-				System.out.println("found doctor with Specialization::::::::::"+doctor.getSpecialization());
 				docBySpec.add(doctor);
 			}
 		}
 		return docBySpec;
 	}
-	
-	static List<Doctor> getDoctorByAvalibility(String available)
+
+	static List<Doctor> getDoctorByAvalibility(String available) 
 	{
-		System.out.println("searching availability:::::"+available);
-		List<Doctor>docByavial=new ArrayList<Doctor>();
-		for (Doctor doctor : doctorList)
+		List<Doctor> docByavial = new ArrayList<Doctor>();
+		for (Doctor doctor : doctorList) 
 		{
-			System.out.println(doctor.getName());
-			
-			if(doctor.getAvailability().equals(available))
+			if (doctor.getAvailability().equals(available)) 
 			{
-				System.out.println("found doctor::::with availability::::::"+doctor.getAvailability());
 				docByavial.add(doctor);
 			}
 		}
 		return docByavial;
 	}
-	
-	static List<Patient> getPatientByName(String name)
+
+	static List<Patient> getPatientByName(String name) 
 	{
-		List<Patient>patientByname=new ArrayList<Patient>();
-		System.out.println("Searching patient by name::::::::"+name);
-		for (Patient patient : patientByname)
+		List<Patient> patientByname = new ArrayList<Patient>();
+		for (Patient patient : patientByname) 
 		{
-				if(patient.getName().contains(name))
-				{
-					patientByname.add(patient);
-					System.out.println("Found patient ::::::::::"+patient.getName());
-				}
+			if (patient.getName().contains(name)) 
+			{
+				patientByname.add(patient);
+			}
 		}
 		return patientByname;
 	}
-	
-	static int getPatientByID(int id)
+
+	static Patient getPatientByID(int id) 
 	{
-		System.out.println("searching patient by ID:::::"+id);
-		
-		for (Patient patient : patientList)
+		for (Patient patient : patientList) 
 		{
-			if(patient.getId()==id)
+			if (patient.getId() == id)
 			{
-				System.out.println("found patient:::with ID:::::::"+patient.getId());
-				return patient.id;
+				return patient;
 			}
 		}
-		return 0;
-	}
-	
-	static int getPatientByMobile(long mobile)
-	{
-		System.out.println("searching mobile:::::"+mobile);
-		
-		for (Patient patient : patientList)
-		{
-			if(patient.mobileNumber==mobile)
-			{
-				System.out.println("found patient::::: with mobile:::::"+patient.getMobileNumber());
-				return patient.getId();
-			}
-		}
-		return 0;
-	}
-	
-	static String getPopularDoctor()
-	{
-		return "";
-	}
-	
-	static String getPopularSpecialization()
-	{
-		return "";
-	}
-	
-	
-	static void getAppointment()
-	{
-		//System.out.println(patientList.get(0).getDesease());
-		String spec=patientList.get(0).getDesease();
-		List<Doctor>doc=getDoctorBySpecialization(spec);
-		//System.out.println(doc);
-		
-		int docId=doc.get(0).getId();
-		Doctor freeDoctor=doctorList.get(docId);
-		
-		int i=0;
-		System.out.println("\n\n----------------Getting appointment-------------------\n\n");
-		while(doctorList.get(docId).appointCount<5)
-		{
-			freeDoctor.setAppointCount(freeDoctor.getAppointCount()+1);
-			System.out.println(freeDoctor.name+" appointed to: "+patientList.get(i).getName()+"\n");
-			//popularDoctor.put(freeDoctor.name,);
-			i++;
-		}
-		System.out.println("Sorry doctor is busy!!!!! visit after some time");
-		
-	}
-	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException
-	{
-		
-		//search Doctor by name, id, Specialization or Availability.
-		//search patient by name, mobile number or id.
-		
-		
-		getAllDoctors();
-		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-		getAllPatients();
-		System.out.println("\n\n\n\n\n");
-		getAppointment();
-		
+		return null;
 	}
 
+	static Patient getPatientByMobile(long mobile) 
+	{
+		for (Patient patient : patientList)
+		{
+			if (patient.getMobileNumber() == mobile) 
+			{
+				return patient;
+			}
+		}
+		return null;
+	}
+
+	static String getPopularDoctor() 
+	{
+		return "";
+	}
+
+	static String getPopularSpecialization() 
+	{
+		return "";
+	}
+
+	static void getAppointment() 
+	{
+		// List of doctors of specialization matched with patient desease
+		// Choose doctor based on Id in given list
+		// Check if doctor appoint count is zero
+		// assign a doctor to a patient and increment doctor appoint count
+
+		// Maintain a map with doctor-Id as key and list of patients as value
+		// to display doctor- patient appointment at present
+
+		/* Getting all doctors with specialization matching patient desease */
+
+		System.out.println("Enter patient ID to take appointment: ");
+		int pid=scanner.nextInt();
+		
+		//If patient input greater than max patient id or less than 1
+		while(pid>patientList.get(patientList.size()-1).getId() || pid<1)
+		{
+			System.out.println("Invalid Patient Id \n Enter valid Patient Id: ");
+			pid=scanner.nextInt();
+		}
+		
+		Patient patient=getPatientByID(pid);
+		
+		List<Doctor> doctWithSpec = getDoctorBySpecialization(patient.getDesease());
+		for (Doctor doctor : doctWithSpec) 
+		{
+			System.out.format("DOCTOR_ID:%2s      Name:%-10s      Speciality:%-10s      Availability:%-1s",doctor.getId(),doctor.getName(),doctor.getSpecialization(),doctor.getAvailability()+"\n\n");
+		}
+
+		System.out.println("\nChoose doctor Id to get appointment: ");
+		int dId = scanner.nextInt();
+		
+		Doctor appDoctor;
+		
+		//If entered id greater than max doctorId or negative input
+		
+		while(dId>doctorList.get(doctorList.size()-1).getId()||dId<1)
+		{
+			System.out.println("Invalid doctorId Enter valid doctor ID: ");
+			 dId = scanner.nextInt();
+		}
+		
+		appDoctor = getDoctorByID(dId);
+		
+		if (appDoctor.getAppointCount() < 5) 
+		{
+			// incrementing appointment count
+			appDoctor.setAppointCount(appDoctor.getAppointCount() + 1);
+			// adding patient to arrayList maintained by doctor
+			appDoctor.getAppointPatient().add(patient);
+			// adding doctor id and and patient list to maintain appointment data
+			appointment.put(appDoctor.getId(), appDoctor.getAppointPatient());
+			System.out.println("\n\n patient: "+patient.getName()+"got appointment with doctor: "+appDoctor.getName()+"\n\n");
+		} 
+		else 
+		{
+			System.out.println("Doctor is busy!!!!!!!!\n Select some other doctor:");
+			getAppointment();
+		}
+	}
+
+	public static void showAppointmentDetails()
+	{
+		  System.out.println("-*-*-*-*-*-*-*-*-*Appointment Report-*-*-*-*-*-*-*\n");
+		  Set<Integer> s=appointment.keySet();
+		  
+		  for (Integer id : s) 
+		  {
+			  System.out.println("List of patients appointed for:::::::: "+doctorList.get(id).getName()+":::::::::::::::::::::"); 
+			  for (Patient patient : appointment.get(id)) 
+			  {
+					System.out.format("PATIENT_ID:%2s      Name:%-10s      Age:%-2s      Mobile:%-1s    Desease:%-1s",patient.getId(),patient.getName(),patient.getAge(),patient.getMobileNumber(),patient.getDesease()+"\n\n");
+			  } 
+		  }
+	}
+	
+	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException 
+	{
+		try {
+			  getAllDoctors();
+			  getAllPatients();
+			  
+			  	  
+			  displayAllDoctors();
+			  System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+			  displayAllPatients();
+			  System.out.println("\n\n\n\n\n");
+			  
+				  while(true) 
+				  {
+					  System.out.println("More patients???");
+					  System.out.println("Press y if yes or n if no");
+					  char c=scanner.next().charAt(0); 
+					  
+					  if(c=='n' || c=='N')
+					  break;
+					  
+					  while(c!='y'&&c!='Y')
+					  {
+						  System.out.println("Invalid choice\n Enter valid choice");
+					  }
+					  getAppointment();
+				  }
+				  
+				  showAppointmentDetails();
+			  }
+			catch (Exception e)
+			  {
+				System.out.println("Error while using Application try again..........");
+			  }
+	    }
 }

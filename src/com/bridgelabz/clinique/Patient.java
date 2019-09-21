@@ -5,15 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Patient 
 {
 	@JsonProperty
-	int id;
+	private int id;
 	@JsonProperty
-	String name; 
+	private String name; 
 	@JsonProperty
-	long mobileNumber;
+	private long mobileNumber;
 	@JsonProperty
-	int age;
+	private int age;
 	@JsonProperty
-	String desease;
+	private String desease;
 	
 	public Patient()
 	{
