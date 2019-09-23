@@ -214,59 +214,83 @@ public class Hospital
 
 		/* Getting all doctors with specialization matching patient desease */
 
-		System.out.println("Enter patient ID to take appointment: ");
-		int pid=scanner.nextInt();
+		 System.out.println("\n\n\n\n\n");
+		  
+		  while(true) 
+		  {
+			  System.out.println("More patients???");
+			  System.out.println("Press y if yes or n if no");
+			  char c=scanner.next().charAt(0); 
+			  
+			  if(c=='n' || c=='N')
+			  break;
+			  
+			  while(c!='y'&&c!='Y')
+			  {
+				  System.out.println("Invalid choice\n Enter valid choice");
+			  }
+				
+			System.out.println("Enter patient ID to take appointment: ");
+			int pid=scanner.nextInt();
+			
+			//If patient input greater than max patient id or less than 1
+			while(pid>patientList.get(patientList.size()-1).getId() || pid<1)
+			{
+				System.out.println("Invalid Patient Id \n Enter valid Patient Id: ");
+				pid=scanner.nextInt();
+			}
 		
-		//If patient input greater than max patient id or less than 1
-		while(pid>patientList.get(patientList.size()-1).getId() || pid<1)
-		{
-			System.out.println("Invalid Patient Id \n Enter valid Patient Id: ");
-			pid=scanner.nextInt();
-		}
+			Patient patient=getPatientByID(pid);
+			
+			List<Doctor> doctWithSpec = getDoctorBySpecialization(patient.getDesease());
+			for (Doctor doctor : doctWithSpec) 
+			{
+				System.out.format("DOCTOR_ID:%2s      Name:%-10s      Speciality:%-10s      Availability:%-1s",doctor.getId(),doctor.getName(),doctor.getSpecialization(),doctor.getAvailability()+"\n\n");
+			}
+	
+			System.out.println("\nChoose doctor Id to get appointment: ");
+			int dId = scanner.nextInt();
+			
+			Doctor appDoctor;
 		
-		Patient patient=getPatientByID(pid);
+			//If entered id greater than max doctorId or negative input
+			
+			while(dId>doctorList.get(doctorList.size()-1).getId()||dId<1)
+			{
+				System.out.println("Invalid doctorId Enter valid doctor ID: ");
+				 dId = scanner.nextInt();
+			}
 		
-		List<Doctor> doctWithSpec = getDoctorBySpecialization(patient.getDesease());
-		for (Doctor doctor : doctWithSpec) 
-		{
-			System.out.format("DOCTOR_ID:%2s      Name:%-10s      Speciality:%-10s      Availability:%-1s",doctor.getId(),doctor.getName(),doctor.getSpecialization(),doctor.getAvailability()+"\n\n");
-		}
-
-		System.out.println("\nChoose doctor Id to get appointment: ");
-		int dId = scanner.nextInt();
-		
-		Doctor appDoctor;
-		
-		//If entered id greater than max doctorId or negative input
-		
-		while(dId>doctorList.get(doctorList.size()-1).getId()||dId<1)
-		{
-			System.out.println("Invalid doctorId Enter valid doctor ID: ");
-			 dId = scanner.nextInt();
-		}
-		
-		appDoctor = getDoctorByID(dId);
-		
-		if (appDoctor.getAppointCount() < 5) 
-		{
-			// incrementing appointment count
-			appDoctor.setAppointCount(appDoctor.getAppointCount() + 1);
-			// adding patient to arrayList maintained by doctor
-			appDoctor.getAppointPatient().add(patient);
-			// adding doctor id and and patient list to maintain appointment data
-			appointment.put(appDoctor.getId(), appDoctor.getAppointPatient());
-			System.out.println("\n\n patient: "+patient.getName()+"got appointment with doctor: "+appDoctor.getName()+"\n\n");
-		} 
-		else 
-		{
-			System.out.println("Doctor is busy!!!!!!!!\n Select some other doctor:");
-			getAppointment();
-		}
+			appDoctor = getDoctorByID(dId);
+			
+			if (appDoctor.getAppointCount() < 5) 
+			{
+				// incrementing appointment count
+				appDoctor.setAppointCount(appDoctor.getAppointCount() + 1);
+				// adding patient to arrayList maintained by doctor
+				appDoctor.getAppointPatient().add(patient);
+				// adding doctor id and and patient list to maintain appointment data
+				appointment.put(appDoctor.getId(), appDoctor.getAppointPatient());
+				System.out.println("\n\n patient: "+patient.getName()+"got appointment with doctor: "+appDoctor.getName()+"\n\n");
+			} 
+			else 
+			{
+				System.out.println("Doctor is busy!!!!!!!!\n Select some other doctor:");
+				getAppointment();
+			}
+		 }
 	}
 
 	public static void showAppointmentDetails()
 	{
 		  System.out.println("-*-*-*-*-*-*-*-*-*Appointment Report-*-*-*-*-*-*-*\n");
+		  
+		  if(appointment.size()==0)
+		  {
+			  System.out.println("No appointments to display");
+			  return;
+		  }
+		  
 		  Set<Integer> s=appointment.keySet();
 		  
 		  for (Integer id : s) 
@@ -279,39 +303,205 @@ public class Hospital
 		  }
 	}
 	
+	public static void displayDoctor(List<Doctor>doctList)
+	{
+		for (Doctor doctor : doctList)
+		{
+			System.out.format("DOCTOR_ID:%2s      Name:%-10s      Speciality:%-10s      Availability:%-1s",doctor.getId(),doctor.getName(),doctor.getSpecialization(),doctor.getAvailability()+"\n\n");
+		}
+	}
+	
+	public static void displayPatient(List<Patient>patList)
+	{
+		for (Patient patient : patList)
+		{
+			System.out.format("PATIENT_ID:%2s      Name:%-10s      Age:%-2s      Mobile:%-1s    Desease:%-1s",patient.getId(),patient.getName(),patient.getAge(),patient.getMobileNumber(),patient.getDesease()+"\n\n");
+		}
+	}
+	
+	public static void menu()
+	{
+		try
+		{
+		System.out.println("Enter your choice:\n1.View Doctors\n2.View Patients\n3.Get Appointment\n4.View Appointment Report\n5.Quit");
+		char choice=scanner.next().charAt(0);
+		
+		switch(choice)
+		{
+		case '1' : displayAllDoctors();
+				  System.out.println("Enter your choice: \n1.Search Doctor By Name\n2.Search Doctor By Id\n3.Search Doctor By specialization\n4.Main Menu\n5.Quit");
+				  char res=scanner.next().charAt(0);
+				  
+				  switch(res)
+				  {
+				    case '1': System.out.println("Enter doctor name: ");
+				   			String name=scanner.next();
+				   			displayDoctor(getDoctorByName(name));
+				   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+				   		    char ch1=scanner.next().charAt(0);
+				   		    switch(ch1)
+				   		    {
+				   		    case '1':menu();
+				   		    		break;
+				   		    case '2': System.exit(0);
+				   		    }
+				   		    break;
+				   		    
+				   	   
+					 case '2':    System.out.println("Enter doctor id: ");
+					   			int did=scanner.nextInt();
+					   			System.out.println(getDoctorByID(did));
+					   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+					   		    char ch2=scanner.next().charAt(0);
+					   		    
+					   		    switch(ch2)
+					   		    {
+					   		    case '1':menu();
+					   		    		break;
+					   		    case '2': System.exit(0);
+					   		    }
+					   		    break;
+					   		    
+					   		    
+					 case '3':    System.out.println("Enter doctor Specialization: ");
+					   			String spec=scanner.next();
+					   			displayDoctor(getDoctorBySpecialization(spec));
+					   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+					   		    char ch3=scanner.next().charAt(0);
+					   		    
+					   		    switch(ch3)
+					   		    {
+					   		    case '1':menu();
+					   		    		break;
+					   		    case '2': System.exit(0);
+					   		    }
+					   		    break;
+					 case '4': menu();
+					 		 break;
+					 		 
+					 case '5': System.exit(0);
+					 
+					 default: System.out.println("Invalid Input: ");
+								 System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+						   		    char ch4=scanner.next().charAt(0);
+						   		    
+						   		    switch(ch4)
+						   		    {
+						   		    case '1':menu();
+						   		    		break;
+						   		    case '2': System.exit(0);
+						   		    }
+						   
+				   }
+				  break;
+		case '2': displayAllPatients();
+		  System.out.println("Enter your choice: \n1.Search Patient By Name\n2.Search Patient By Id\n3.Search Patient By mobile\n4.Main Menu\n5.Quit");
+		  char res1=scanner.next().charAt(0);
+		  
+		  switch(res1)
+		  {
+		    case '1': System.out.println("Enter Patient name: ");
+		   			String name=scanner.next();
+		   			displayPatient(getPatientByName(name));
+		   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+		   		    char ch1=scanner.next().charAt(0);
+		   		    switch(ch1)
+		   		    {
+		   		    case '1':menu();
+		   		    		break;
+		   		    case '2': System.exit(0);
+		   		    }
+		   		    break;
+		   		    
+		   	   
+			 case '2':    System.out.println("Enter patient id: ");
+			   			int pid=scanner.nextInt();
+			   			System.out.println(getPatientByID(pid));
+			   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+			   		    char ch2=scanner.next().charAt(0);
+			   		    
+			   		    switch(ch2)
+			   		    {
+			   		    case '1':menu();
+			   		    		break;
+			   		    case '2': System.exit(0);
+			   		    }
+			   		    break;
+			   		    
+			   		    
+			 case '3':    System.out.println("Enter Patient Mobile: ");
+			   			long mobile=scanner.nextLong();
+			   			System.out.println(getPatientByMobile(mobile));
+			   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+			   		    char ch3=scanner.next().charAt(0);
+			   		    
+			   		    switch(ch3)
+			   		    {
+			   		    case '1':menu();
+			   		    		break;
+			   		    case '2': System.exit(0);
+			   		    }
+			   		    break;
+			 case '4': menu();
+			 		 break;
+			 		 
+			 case '5': System.exit(0);
+			 
+			 default: System.out.println("Invalid Input: ");
+						 System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+				   		    char ch4=scanner.next().charAt(0);
+				   		    
+				   		    switch(ch4)
+				   		    {
+				   		    case '1':menu();
+				   		    		break;
+				   		    case '2': System.exit(0);
+				   		    }
+		   }
+		  break;
+		case '3': 	displayAllDoctors();
+					displayAllPatients();
+					getAppointment();
+					System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+		   		    char ch3=scanner.next().charAt(0);
+		   		    
+		   		    switch(ch3)
+		   		    {
+		   		    case '1':menu();
+		   		    		break;
+		   		    case '2': System.exit(0);
+		   		    }
+		   		    break;
+		   		    
+		case '4':  showAppointmentDetails();
+				 System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
+				    char ch4=scanner.next().charAt(0);
+				    
+				    switch(ch4)
+				    {
+				    case '1':menu();
+				    		break;
+				    case '2': System.exit(0);
+				    
+				    }
+				    break;
+		case '5':System.exit(0);
+		default : System.out.println("Invalid input");
+					System.exit(0);
+		}		
+		}catch (Exception e) 
+		{
+			System.out.println("Invalid input");
+		}
+	}
+	
+	
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException 
 	{
-		try {
-			  getAllDoctors();
-			  getAllPatients();
-			  
-			  	  
-			  displayAllDoctors();
-			  System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-			  displayAllPatients();
-			  System.out.println("\n\n\n\n\n");
-			  
-				  while(true) 
-				  {
-					  System.out.println("More patients???");
-					  System.out.println("Press y if yes or n if no");
-					  char c=scanner.next().charAt(0); 
-					  
-					  if(c=='n' || c=='N')
-					  break;
-					  
-					  while(c!='y'&&c!='Y')
-					  {
-						  System.out.println("Invalid choice\n Enter valid choice");
-					  }
-					  getAppointment();
-				  }
-				  
-				  showAppointmentDetails();
-			  }
-			catch (Exception e)
-			  {
-				System.out.println("Error while using Application try again..........");
-			  }
-	    }
+		
+		  getAllDoctors();
+		  getAllPatients();
+		
+		  menu();
+	}
 }
