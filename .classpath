@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="/home/admin1/Downloads/jackson-core-2.9.0.jar"/>
 	<classpathentry kind="lib" path="/home/admin1/Downloads/jackson-databind-2.9.0.jar"/>
 	<classpathentry kind="lib" path="/home/admin1/Downloads/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/admin1/Downloads/junit-4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

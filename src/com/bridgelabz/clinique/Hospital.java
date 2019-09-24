@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -192,14 +194,30 @@ public class Hospital
 		return null;
 	}
 
-	static String getPopularDoctor() 
+	static void getPopularDoctor() 
 	{
-		return "";
+		if(popularDoctor.size()==0)
+		{
+		System.out.println("No popular doctor");
+		return;
+		}
+		int res=Collections.max(popularDoctor.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
+		
+		System.out.println(doctorList.get(res));
 	}
 
-	static String getPopularSpecialization() 
+	static void getPopularSpecialization() 
 	{
-		return "";
+		if(popularSpecialization.size()==0)
+		{
+			System.out.println("No popular specilization");
+			return;
+		}
+		
+		String res=Collections.max(popularSpecialization.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
+
+		
+		System.out.println("Popular Specilization: "+res);
 	}
 
 	static void getAppointment() 
@@ -267,11 +285,19 @@ public class Hospital
 			{
 				// incrementing appointment count
 				appDoctor.setAppointCount(appDoctor.getAppointCount() + 1);
+				
+				
+				
+				
+				
 				// adding patient to arrayList maintained by doctor
 				appDoctor.getAppointPatient().add(patient);
 				// adding doctor id and and patient list to maintain appointment data
 				appointment.put(appDoctor.getId(), appDoctor.getAppointPatient());
 				System.out.println("\n\n patient: "+patient.getName()+"got appointment with doctor: "+appDoctor.getName()+"\n\n");
+				
+				popularDoctor.put(appDoctor.getId(),popularDoctor.get(appDoctor.getId())+1);
+				popularSpecialization.put(appDoctor.getSpecialization(),popularSpecialization.get(appDoctor.getSpecialization())+1);
 			} 
 			else 
 			{
@@ -495,13 +521,12 @@ public class Hospital
 		}
 	}
 	
-	
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException 
 	{
 		
 		  getAllDoctors();
 		  getAllPatients();
-		
+		  
 		  menu();
 	}
 }

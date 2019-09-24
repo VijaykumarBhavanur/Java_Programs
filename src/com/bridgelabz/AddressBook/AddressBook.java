@@ -23,6 +23,7 @@ public class AddressBook
 	
 	public static void addContact() throws JsonParseException, JsonMappingException, IOException
 	{
+		
 		System.out.println("Adding contact........");
 		System.out.println("Enter first name: ");
 		String fname=scanner.next();
@@ -212,24 +213,31 @@ public class AddressBook
 		switch(choice)
 		{
 		case '1': addContact();
+				  mainMenu();
 				break;
 				
 		case '2': updateContact();
+				  mainMenu();
 				break;
 				
 		case '3': deleteContact();
+				 mainMenu();
 				break;
 		
 		case '4': sortByFirstName();
+					mainMenu();
 				  break;
 				  
 		case '5': sortByZipCode();
+				  mainMenu();
 				  break;
 				  
 		case '6': saveAddressBook();
+				  mainMenu();
 				 break;
 				 
 		case '7': saveAddressBookAs();
+				mainMenu();
 				 break;
 				 
 		case '8': mainMenu();
@@ -301,6 +309,7 @@ public class AddressBook
 		{
 			System.out.println("Address-Book Empty No contacts to display");
 			mainMenu();
+			
 		}
 	    contact=new ArrayList<Contact>(Arrays.asList(mapper.readValue(file,Contact[].class)));
 	    
@@ -360,6 +369,10 @@ public class AddressBook
 	/*Starting point of Application*/
 	public static void main(String[] args) throws IOException
 	{
+		try {
 		mainMenu();
+		}catch (Exception e) {
+		e.getMessage();
+		}
 	}
 }
