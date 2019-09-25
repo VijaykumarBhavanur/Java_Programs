@@ -18,13 +18,32 @@ public class JSONTEST
 		
 		String key=scanner.next();
 		
+		while(!key.equalsIgnoreCase("rice") && !key.equalsIgnoreCase("wheat") && !key.equalsIgnoreCase("pulse") )
+		{
+			System.out.println("Invalid item: \n enter valid item name: ");
+			 key=scanner.next();
+		}
+		
+		if(key.equalsIgnoreCase("rice"))
+			key="Rice";
+		else if(key.equalsIgnoreCase("wheat"))
+			key="Wheat";
+		else key="Pulse";
+		
+		
 		JSONParser parser=new JSONParser();
 		Object obj=parser.parse(new FileReader("/home/admin1/Desktop/rice.json"));
 		JSONObject json=(JSONObject)obj;
 		
 		InventaryJSON inv1=InventaryJSON.createInventary(json,key);
 		
-		double value=InventaryJSON.GetInventaryValue(inv1);
+		
+		System.out.println("Enter number of KG's to purcahse: ");
+		int kg=scanner.nextInt();
+		double value=kg*inv1.priceInRupees;
+		
+		
+		//double value=InventaryJSON.GetInventaryValue(inv1);
 		
 		JSONObject newJson=new JSONObject();
 		newJson.put("Value",value);

@@ -1,8 +1,11 @@
 package com.bridgelabz.oops;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
@@ -11,6 +14,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class StockAccount 
 {
@@ -85,6 +92,12 @@ public class StockAccount
 		System.out.println("Enter company serial number to purchase stock: ");
 		int serial=scanner.nextInt();
 		
+		while(serial==0|| serial>companyList.lastKey())
+		{
+			System.out.println("Invalid serial no, enter valid serial number:");
+			serial=scanner.nextInt();
+		}
+		
 		System.out.println("Enter number of shares to purchase: ");
 		int noOfShares=scanner.nextInt();
 		
@@ -136,8 +149,9 @@ public class StockAccount
 			transactionData.put(transactionIndex++, transaction);
 	}
 	
-	public void printTransactionReport()
+	public void printTransactionReport() throws JsonGenerationException, JsonMappingException, IOException
 	{
+		List<Transaction>tranList=new ArrayList<Transaction>();
 		Set s=transactionData.keySet();
 		System.out.println("Transaction No.           CompanyName              CustomerName            No.OfSharesPurchased            No.OfSharesSold             TotalTransactionValue");
 		
@@ -146,7 +160,12 @@ public class StockAccount
 		System.out.println(object+"                     "+transactionData.get(object).companyName+"                       "+transactionData.get(object).customerName+
 				          "                            "+transactionData.get(object).noOfSharesPurchased+"                    "+transactionData.get(object).noOfSharesSold+
 				          "                             "+transactionData.get(object).totalTransactionValue);
+		tranList.add(transactionData.get(object));
 		}
+		ObjectMapper mapper=new ObjectMapper();
+		File file=new File("/home/admin1/Desktop/transaction.json");
+		file.createNewFile();
+		mapper.writeValue(file, tranList);
 	}
 	
 	public void sell(TreeMap<Integer, Company> companyList,Customer customer)
@@ -156,6 +175,14 @@ public class StockAccount
 			
 			System.out.println("Enter company serial number to sell stock: ");
 			int serial=scanner.nextInt();
+			
+			
+			while(serial==0|| serial>companyList.lastKey())
+			{
+				System.out.println("Invalid serial no, enter valid serial number:");
+				serial=scanner.nextInt();
+			}
+			
 			
 			System.out.println("Enter number of shares to sell: ");
 			int noOfShares=scanner.nextInt();
@@ -256,6 +283,14 @@ public class StockAccount
 		
 			System.out.println("Enter your choice: \n Press P to buy share\n Press S to Sell share");
 			char choice=scanner.next().charAt(0);
+			while(choice!='p' && choice!='P' && choice!='s' && choice!='S')
+			{
+				System.out.println("Invalid input please enter valid input: ");
+				System.out.println("Enter your choice: \n Press P to buy share\n Press S to Sell share");
+				choice=scanner.next().charAt(0);
+			}
+			
+			
 			
 			
 			if(choice=='P' || choice=='p')
