@@ -145,6 +145,7 @@ public class Bank
 			Bank b=new Bank();
 			int token=0;
 			
+			@SuppressWarnings("resource")
 			Scanner scanner=new Scanner(System.in);
 			
 			while(true)

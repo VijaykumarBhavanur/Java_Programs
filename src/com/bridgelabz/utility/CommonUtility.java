@@ -200,7 +200,7 @@ public class CommonUtility {
 	}
 	/* Method to display String in proper Order*/
 	
-	public static void displayString(String arr[])
+	public void displayString(String arr[])
 	 {
 		 String st="{";
 			for (int i = 0; i < arr.length; i++)

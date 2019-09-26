@@ -75,10 +75,9 @@ public class PrimeAnagramNumberAndPolindrome {
 	public static void main(String[] args) 
 	{
 		
-		ArrayList al = new ArrayList();
+		ArrayList<Integer> al = new ArrayList<Integer>();
 		for (int i = 2; i < 1000; i++) 
 		{
-			boolean prime = isPrime(i);
 			if (isPrime(i) && isPalindrome(String.valueOf(i)))
 				al.add(i);
 		}

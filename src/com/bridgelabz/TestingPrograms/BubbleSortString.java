@@ -1,6 +1,5 @@
 package com.bridgelabz.TestingPrograms;
 
-import java.util.Arrays;
 
 import com.bridgelabz.utility.CommonUtility;
 

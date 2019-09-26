@@ -1,9 +1,7 @@
 package com.bridgelabz.TestingPrograms;
 
-import java.awt.Color;
 import java.util.Arrays;
 
-import javax.swing.JLabel;
 
 public class BubbleSortTest 
 {

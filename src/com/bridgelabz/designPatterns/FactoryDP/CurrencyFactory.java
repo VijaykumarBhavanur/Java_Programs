@@ -1,4 +1,4 @@
-package com.bridgelabz.designPatterns;
+package com.bridgelabz.designPatterns.FactoryDP;
 
 import com.bridgelabz.designPatterns.FactoryDP.Currency;
 import com.bridgelabz.designPatterns.FactoryDP.Dubai;

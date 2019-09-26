@@ -53,7 +53,7 @@ public class StockAccount
 		return customerList;
 	}
 	/*Method to create a stock of company*/
-	public  TreeMap createCompanyStock(String file) throws FileNotFoundException, IOException, ParseException
+	public  TreeMap<Integer,Company> createCompanyStock(String file) throws FileNotFoundException, IOException, ParseException
 	{
 		JSONObject json=(JSONObject) new JSONParser().parse(new FileReader(file));
 		JSONArray a=(JSONArray)json.get("STOCK");

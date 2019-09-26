@@ -22,7 +22,7 @@ public class PrimeFactors {
 	{
 		int n=12;
 		int i=2;
-		ArrayList arrayList=new ArrayList();
+		ArrayList<Integer> arrayList=new ArrayList<>();
 		
 		while(i<=n/2)
 		{

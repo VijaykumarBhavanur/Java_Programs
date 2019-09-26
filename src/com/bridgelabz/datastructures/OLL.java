@@ -1,10 +1,8 @@
 package com.bridgelabz.datastructures;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class OLL<T>
@@ -220,6 +218,7 @@ public class OLL<T>
 		System.out.println();
 
 		System.out.println("Enter number you want to find: ");
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int findNum = sc.nextInt();
 

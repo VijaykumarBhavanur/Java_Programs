@@ -95,7 +95,7 @@ public class PrimeAndAnagramInTwoDArray
 	}
 	
 	 /* Method to add elements to 2-D array and display*/
-	 static void TwoDArray(ArrayList one,ArrayList two)
+	 static void TwoDArray(ArrayList<Integer> one,ArrayList<Integer> two)
 	{
 
 			int p_and_ana[][]=new int[9][12];

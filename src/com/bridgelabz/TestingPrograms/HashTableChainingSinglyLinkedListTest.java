@@ -267,6 +267,7 @@ public class HashTableChainingSinglyLinkedListTest
 		System.out.println("Hash Table Test\n\n");
 
 		
+		@SuppressWarnings("resource")
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter size");
 		  
