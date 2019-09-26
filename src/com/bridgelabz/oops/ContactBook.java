@@ -76,7 +76,7 @@ public class ContactBook
 	
 	public void addContact() throws JsonGenerationException, JsonMappingException, IOException
 	{
-		Contact contact=new Contact(contactList.lastKey()+1,"Ramesh","Jain","AP",500003,8784947832l);
+		Contact contact=new Contact(contactList.lastKey()+1,"Ramesh","Jain","AP","500003","8784947832");
 		contactList.put(contactList.lastKey()+1,contact);
 		contactBook.writeContact();
 	
@@ -157,7 +157,7 @@ public class ContactBook
 		if(res=='Y'||res=='y')
 		{
 			System.out.println("Enter new value for zipCode: ");
-			int zipCode=scanner.nextInt();
+			String zipCode=scanner.next();
 			contact.setZipCode(zipCode);
 		}
 		
@@ -171,7 +171,7 @@ public class ContactBook
 		if(res=='Y'||res=='y')
 		{
 			System.out.println("Enter new value for mobileNumber: ");
-			long mobileNumber=scanner.nextLong();
+			String mobileNumber=scanner.next();
 			contact.setMobileNumber(mobileNumber);
 		}
 		

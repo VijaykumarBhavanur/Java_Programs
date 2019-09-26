@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -327,6 +328,8 @@ public class Hospital
 					System.out.format("PATIENT_ID:%2s      Name:%-10s      Age:%-2s      Mobile:%-1s    Desease:%-1s",patient.getId(),patient.getName(),patient.getAge(),patient.getMobileNumber(),patient.getDesease()+"\n\n");
 			  } 
 		  }
+		  
+		  
 	}
 	
 	public static void displayDoctor(List<Doctor>doctList)
@@ -350,46 +353,73 @@ public class Hospital
 		try
 		{
 		System.out.println("Enter your choice:\n1.View Doctors\n2.View Patients\n3.Get Appointment\n4.View Appointment Report\n5.Quit");
-		char choice=scanner.next().charAt(0);
+		String choice=scanner.next();
 		
 		switch(choice)
 		{
-		case '1' : displayAllDoctors();
+		case "1" : displayAllDoctors();
 				  System.out.println("Enter your choice: \n1.Search Doctor By Name\n2.Search Doctor By Id\n3.Search Doctor By specialization\n4.Main Menu\n5.Quit");
-				  char res=scanner.next().charAt(0);
+				  String res=scanner.next();
+				  
+				  while(!Pattern.compile("[1-5]{1}").matcher(res).matches())
+					{
+						System.out.println("Invalid choice\n Enter valid choice: ");
+						res=scanner.next();
+					}
+				  
 				  
 				  switch(res)
 				  {
-				    case '1': System.out.println("Enter doctor name: ");
+				    case "1": System.out.println("Enter doctor name: ");
 				   			String name=scanner.next();
 				   			displayDoctor(getDoctorByName(name));
 				   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
-				   		    char ch1=scanner.next().charAt(0);
+				   		    
+				   		    String ch1=scanner.next();
+				   		    
+				   		    
+				   		 while(!Pattern.compile("[1-2]{1}").matcher(ch1).matches())
+							{
+								System.out.println("Invalid choice\n Enter valid choice: ");
+								ch1=scanner.next();
+							}
+				   		    
 				   		    switch(ch1)
 				   		    {
-				   		    case '1':menu();
+				   		    case "1":menu();
 				   		    		break;
-				   		    case '2': System.exit(0);
+				   		    case "2": System.exit(0);
 				   		    }
 				   		    break;
 				   		    
 				   	   
-					 case '2':    System.out.println("Enter doctor id: ");
+					 case "2":    System.out.println("Enter doctor id: ");
 					   			int did=scanner.nextInt();
-					   			System.out.println(getDoctorByID(did));
+					   			
+					   			Doctor doc=getDoctorByID(did);
+					   			if(doc==null)
+					   				System.out.println("No doctor found");
+					   			
 					   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
-					   		    char ch2=scanner.next().charAt(0);
+					   		    
+					   		 String ch2=scanner.next();
+					   		    
+					   		    
+					   		 while(!Pattern.compile("[1-2]{1}").matcher(ch2).matches())
+								{
+									System.out.println("Invalid choice\n Enter valid choice: ");
+									ch2=scanner.next();
+								}
 					   		    
 					   		    switch(ch2)
 					   		    {
-					   		    case '1':menu();
+					   		    case "1":menu();
 					   		    		break;
-					   		    case '2': System.exit(0);
+					   		    case "2": System.exit(0);
 					   		    }
 					   		    break;
 					   		    
-					   		    
-					 case '3':    System.out.println("Enter doctor Specialization: ");
+					 case "3":    System.out.println("Enter doctor Specialization: ");
 					   			String spec=scanner.next();
 					   			displayDoctor(getDoctorBySpecialization(spec));
 					   		    System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
@@ -402,10 +432,10 @@ public class Hospital
 					   		    case '2': System.exit(0);
 					   		    }
 					   		    break;
-					 case '4': menu();
+					 case "4": menu();
 					 		 break;
 					 		 
-					 case '5': System.exit(0);
+					 case "5": System.exit(0);
 					 
 					 default: System.out.println("Invalid Input: ");
 								 System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
@@ -420,7 +450,7 @@ public class Hospital
 						   
 				   }
 				  break;
-		case '2': displayAllPatients();
+		case "2": displayAllPatients();
 		  System.out.println("Enter your choice: \n1.Search Patient By Name\n2.Search Patient By Id\n3.Search Patient By mobile\n4.Main Menu\n5.Quit");
 		  char res1=scanner.next().charAt(0);
 		  
@@ -485,7 +515,7 @@ public class Hospital
 				   		    }
 		   }
 		  break;
-		case '3': 	displayAllDoctors();
+		case "3": 	displayAllDoctors();
 					displayAllPatients();
 					getAppointment();
 					System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
@@ -499,7 +529,7 @@ public class Hospital
 		   		    }
 		   		    break;
 		   		    
-		case '4':  showAppointmentDetails();
+		case "4":  showAppointmentDetails();
 				 System.out.println("Enter your choice:\n1.Main Menu \n2.Quit");	
 				    char ch4=scanner.next().charAt(0);
 				    
@@ -511,7 +541,7 @@ public class Hospital
 				    
 				    }
 				    break;
-		case '5':System.exit(0);
+		case "5":System.exit(0);
 		default : System.out.println("Invalid input");
 					System.exit(0);
 		}		

@@ -7,12 +7,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AddressBook 
+public class AddressBook  implements IAddressBook
 {
 	static Scanner scanner=new Scanner(System.in);
 	static java.util.List<Contact> contact;
@@ -21,36 +23,91 @@ public class AddressBook
 
 	/* Method to add new contact to address-book*/
 	
-	public static void addContact() throws JsonParseException, JsonMappingException, IOException
+	public  void addContact() 
 	{
-		
+		try
+		{
 		System.out.println("Adding contact........");
 		System.out.println("Enter first name: ");
 		String fname=scanner.next();
 		
+		while(!Pattern.compile("^[a-zA-Z]{1,15}$").matcher(fname).matches())
+		{
+			System.out.println("Invalid firstname\n Enter valid firstname: ");
+			fname=scanner.next();
+		}
+		
+		
 		System.out.println("Enter last name: ");
 		String lname=scanner.next();
+		
+		while(!Pattern.compile("^[a-zA-Z]{1,15}$").matcher(lname).matches())
+		{
+			System.out.println("Invalid lastname\n Enter valid lastname: ");
+			lname=scanner.next();
+		}
+		
+		
 		
 		System.out.println("Enter city: ");
 		String city=scanner.next();
 		
+		while(!Pattern.compile("^[a-zA-Z]{1,15}$").matcher(city).matches())
+		{
+			System.out.println("Invalid city\n Enter valid city: ");
+			city=scanner.next();
+		}
+		
+		
+		
+		
+		
 		System.out.println("Enter zipcode: ");
-		int zip=scanner.nextInt();
+		String zip=scanner.next();
+		
+		while(!Pattern.compile("^[1-9][0-9]{5}$").matcher(String.valueOf(zip)).matches())
+		{
+			System.out.println("Invalid ZIPCode\n Enter valid ZipCode with 6 digits: ");
+			zip=zip=scanner.next();
+		}
+		
+		
 		
 		System.out.println("Enter Mobile number: ");
-		long mobile=scanner.nextLong();
+		String mobile=scanner.next();
+		
+		while(!Pattern.compile("^[7-9][0-9]{9}$").matcher(String.valueOf(mobile)).matches())
+		{
+			System.out.println("Invalid Mobile number\n Enter valid mobile number with 10 digits: ");
+			mobile=scanner.next();
+		}
+		
 		
 		Contact newContact=new Contact(contact.size()+1,fname,lname,city,zip,mobile);
 		contact.add(newContact);
 		System.out.println("After adding new Contact.........");
-		System.out.println("Saving address book.......");
-		saveAddressBook();
+		System.out.println("Do you wish to save changes?\nPress 'Y' if yes or 'N' if not");
 		
+		char res=scanner.next().charAt(0);
+		while(res!='Y' && res!='y' && res!='N' && res!='n')
+		{
+			System.out.println("Invalid choice\nEnter valid choice: ");
+			System.out.println("Press 'Y' if Yes or 'N' if not");
+			res=scanner.next().charAt(0);
+		}
+		if(res=='Y'||res=='y')
+		saveAddressBook();
+		}
+		catch (Exception e) {
+			System.out.println("Invalid input");
+		}
 	}
 	
 	/* Method to edit an existing contact of address-book*/
-	public static void updateContact() throws JsonGenerationException, JsonMappingException, IOException
+	public  void updateContact() 
 	{
+		try
+		{
 		if(file.length()==0)
 		{
 			System.out.println("Address-Book Empty! No contacts to update");
@@ -74,13 +131,24 @@ public class AddressBook
 			System.out.println("Press 'Y' if Yes or 'N' if not");
 			res=scanner.next().charAt(0);
 			
-			if(res!='Y' && res!='y' && res!='N' && res!='n')
-				throw new InputMismatchException();
+			while(res!='Y' && res!='y' && res!='N' && res!='n')
+			{
+				System.out.println("Invalid choice\nEnter valid choice: ");
+				System.out.println("Press 'Y' if Yes or 'N' if not");
+				res=scanner.next().charAt(0);
+			}
 			
 			if(res=='Y'||res=='y')
 			{
+				
 				System.out.println("Enter new value for firstName: ");
 				String fName=scanner.next();
+				
+				while(!Pattern.compile("^[a-zA-Z]{1,15}$").matcher(fName).matches())
+				{
+					System.out.println("Invalid firstname\n Enter valid firstname: ");
+					fName=scanner.next();
+				}
 				upContact.setFirstName(fName);
 			}
 			
@@ -89,43 +157,79 @@ public class AddressBook
 			res=scanner.next().charAt(0);
 			
 
-			if(res!='Y' && res!='y' && res!='N' && res!='n')
-				throw new InputMismatchException();
+			while(res!='Y' && res!='y' && res!='N' && res!='n')
+			{
+				System.out.println("Invalid choice\nEnter valid choice: ");
+				System.out.println("Press 'Y' if Yes or 'N' if not");
+				res=scanner.next().charAt(0);
+			}
 			
 			if(res=='Y'||res=='y')
 			{
 				System.out.println("Enter new value for lastName: ");
 				String lName=scanner.next();
+				
+				while(!Pattern.compile("^[a-zA-Z]{1,15}$").matcher(lName).matches())
+				{
+					System.out.println("Invalid last name\n Enter valid last name: ");
+					lName=scanner.next();
+				}
 				upContact.setLastName(lName);
+			
 			}
-			
-			
+				
 			System.out.println("Do you wish to edit city field of contact?");
 			System.out.println("Press 'Y' if Yes or 'N' if not");
 			res=scanner.next().charAt(0);
 			
 
-			if(res!='Y' && res!='y' && res!='N' && res!='n')
-				throw new InputMismatchException();
+			while(res!='Y' && res!='y' && res!='N' && res!='n')
+			{
+				System.out.println("Invalid choice\nEnter valid choice: ");
+				System.out.println("Press 'Y' if Yes or 'N' if not");
+				res=scanner.next().charAt(0);
+			}
+			
 			if(res=='Y'||res=='y')
 			{
 				System.out.println("Enter new value for city: ");
 				String city=scanner.next();
+				
+				while(!Pattern.compile("^[a-zA-Z]{1,15}$").matcher(city).matches())
+				{
+					System.out.println("Invalid city\n Enter valid city  name: ");
+					city=scanner.next();
+				}
 				upContact.setCity(city);
 			}
+			
+			
 			
 			System.out.println("Do you wish to edit zipCode of contact?");
 			System.out.println("Press 'Y' if Yes or 'N' if not");
 			res=scanner.next().charAt(0);
 			
 
-			if(res!='Y' && res!='y' && res!='N' && res!='n')
-				throw new InputMismatchException();
-			if(res=='Y'||res=='y')
+			while(res!='Y' && res!='y' && res!='N' && res!='n')
 			{
-				System.out.println("Enter new value for zipCode: ");
-				int zipCode=scanner.nextInt();
-				upContact.setZipCode(zipCode);
+				System.out.println("Invalid choice\nEnter valid choice: ");
+				System.out.println("Press 'Y' if Yes or 'N' if not");
+				res=scanner.next().charAt(0);
+			}
+			
+			if(res=='Y'||res=='y')
+			{	
+				System.out.println("Enter zipcode: ");
+				String zip=scanner.next();
+				
+				while(!Pattern.compile("^[1-9][0-9]{5}$").matcher(String.valueOf(zip)).matches())
+				{
+					System.out.println("Invalid ZIPCode\n Enter valid ZipCode with 6 digits: ");
+					zip=scanner.next();
+				}
+				
+				upContact.setZipCode(zip);
+			
 			}
 			
 			System.out.println("Do you wish to edit mobileNumber of contact?");
@@ -133,27 +237,48 @@ public class AddressBook
 			res=scanner.next().charAt(0);
 			
 
-			if(res!='Y' && res!='y' && res!='N' && res!='n')
-				throw new InputMismatchException();
+			while(res!='Y' && res!='y' && res!='N' && res!='n')
+			{
+				System.out.println("Invalid choice\nEnter valid choice: ");
+				System.out.println("Press 'Y' if Yes or 'N' if not");
+				res=scanner.next().charAt(0);
+			}
+			
 			if(res=='Y'||res=='y')
 			{
-				System.out.println("Enter new value for mobileNumber: ");
-				long mobileNumber=scanner.nextLong();
-				upContact.setMobileNumber(mobileNumber);
+				System.out.println("Enter Mobile number: ");
+				String mobile=scanner.next();
+				
+				while(!Pattern.compile("^[7-9][0-9]{9}$").matcher(String.valueOf(mobile)).matches())
+				{
+					System.out.println("Invalid Mobile number\n Enter valid mobile number with 10 digits: ");
+					mobile=scanner.next();
+				}
 			}
 		
 		contact.set(id-1,upContact);
 			
 		updateId();
+		System.out.println("Do you wish to save changes?\nPress 'Y' if yes or 'N' if not");
+		while(res!='Y' && res!='y' && res!='N' && res!='n')
+		{
+			System.out.println("Invalid choice\nEnter valid choice: ");
+			System.out.println("Press 'Y' if Yes or 'N' if not");
+			res=scanner.next().charAt(0);
+		}
+		if(res=='Y'||res=='y')
 		saveAddressBook();
 		System.out.println("After updation: ");
 		showAddressBook(currentAddressBook);
+		}catch (Exception e) {
+		System.out.println("Invalid operation");
+		}
 		
 	}
 	
 	
 	/* Method to maintain sequence of Id after deletion of contact from address-book*/
-	public static void updateId() 
+	public  void updateId() 
 	{
 		int id=1;
 		for (Contact contact2 : contact) 
@@ -165,15 +290,22 @@ public class AddressBook
 	
 	
 	/* Method to save address-book to json file*/
-	public static void saveAddressBook() throws JsonGenerationException, JsonMappingException, IOException
+	public  void saveAddressBook()
 	{
 		ObjectMapper mapper=new ObjectMapper();
+		try
+		{
 		mapper.writeValue(file, contact);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*method to delete a contact from address-book*/
-	public static void deleteContact() throws JsonGenerationException, JsonMappingException, IOException
+	public  void deleteContact()
 	{
+		try
+		{
 
 		if(file.length()==0)
 		{
@@ -192,75 +324,109 @@ public class AddressBook
 			}
 		 contact.remove(id-1);
 		updateId();
+		
+		System.out.println("Do you wish to save changes?\nPress 'Y' if yes or 'N' if not");
+		
+		char res=scanner.next().charAt(0);
+		while(res!='Y' && res!='y' && res!='N' && res!='n')
+		{
+			System.out.println("Invalid choice\nEnter valid choice: ");
+			System.out.println("Press 'Y' if Yes or 'N' if not");
+			res=scanner.next().charAt(0);
+		}
+		
+		if(res=='Y'||res=='y')
 		saveAddressBook();
+	
 		System.out.println("deleting.......");
 		showAddressBook(currentAddressBook);
+		}
+		catch (Exception e) {
+			System.out.println("Invalid operation");
+		}
 	}
 	
 	/*Method to terminate program*/
-    public static void quit()
+    public  void quit()
 	{
 		System.exit(0);
 	}
 	
     /*Method to Show available Options*/
-    public static void  showOptions() throws IOException
+    public  void  showOptions() 
 	{
+    	try {
+    	
 		System.out.println("\nEnter your choice: ");
 		System.out.println("1.Add Contact\n2.Update Contact\n3.Delete Contact\n4.Sort Contacts By First name\n5.Sort Contacts By Zip code\n6.Save Address Book\n7.Save Address Book As\n8.Main Menu\n9.Quit");
-		char choice=scanner.next().charAt(0);
+		int choice=scanner.nextInt();
 		
+		while(choice==0||choice>9)
+		{
+			System.out.println("Invalid choice\n Enter valid choice: ");
+			choice=scanner.nextInt();
+		}
 		switch(choice)
 		{
-		case '1': addContact();
+		case 1: addContact();
 				  mainMenu();
 				break;
 				
-		case '2': updateContact();
+		case 2: updateContact();
 				  mainMenu();
 				break;
 				
-		case '3': deleteContact();
+		case 3: deleteContact();
 				 mainMenu();
 				break;
 		
-		case '4': sortByFirstName();
+		case 4: sortByFirstName();
 					mainMenu();
 				  break;
 				  
-		case '5': sortByZipCode();
+		case 5: sortByZipCode();
 				  mainMenu();
 				  break;
 				  
-		case '6': saveAddressBook();
+		case 6: saveAddressBook();
 				  mainMenu();
 				 break;
 				 
-		case '7': saveAddressBookAs();
+		case 7: saveAddressBookAs();
 				mainMenu();
 				 break;
 				 
-		case '8': mainMenu();
+		case 8: mainMenu();
 				  break;
 				  
-		case '9': quit();
+		case 9: quit();
 					break;
 		default: System.out.println("Invalid output");
+		}
+    	}catch (Exception e) {
+			e.getMessage();
 		}
 	}
 	
     /*Method to display main-menu*/
-	static void mainMenu() throws IOException
+	public void mainMenu() 
 	{
+		try {
 		System.out.println("\n=+=+=+=+=+=+=+=+=+=Welcome to Address Book Management System=+=+=+=+=+=+=+=+=+=\n\n");
 		System.out.println("Enter your choice: ");
 		
 		System.out.println("1.Create new Address Book\n2.Open Existing Address Book\n3.Quit");
-		char c=scanner.next().charAt(0);
+		String c=scanner.next();
+		
+		while(!Pattern.compile("[1-3]{1}").matcher(c).matches())
+		{
+			System.out.println("Invalid choice\n Enter valid choice: ");
+			c=scanner.next();
+		}
 			switch (c)
 			{
 			
-			case '1': System.out.println("Enter name for new AddressBook: ");
+			case "1": System.out.println("Enter name for new AddressBook: ");
 					  String name=scanner.next();
 					  
 					  file =new File("/home/admin1/Desktop/ContactList/"+name+".json");
@@ -277,7 +443,7 @@ public class AddressBook
 					
 					  break;
 		
-			case '2': System.out.println("Enter your choice: ");
+			case "2": System.out.println("Enter your choice: ");
 					  File file1 =new File("/home/admin1/Desktop/ContactList");	
 					  
 					  String[]list=file1.list((contacts,fileName) -> fileName.endsWith(".json"));
@@ -293,22 +459,29 @@ public class AddressBook
 					 showAddressBook(currentAddressBook);
 					 showOptions();
 					 break;
-			case '3': quit();
+			case "3": quit();
 				default: System.out.println("Invalid Input");
 				     break;
 			}
+		}catch (Exception e)
+		{
+			System.out.println("Invalid input");
+			}
+		
 	}
 	
 	/*Method to display all contacts available in address-book*/
-	public static void showAddressBook(String book) throws JsonParseException, JsonMappingException, IOException
+	public  void showAddressBook(String book)
 	{
+		try
+		{
 		ObjectMapper mapper=new ObjectMapper();
 		file =new File("/home/admin1/Desktop/ContactList/"+book);
 		
 		if(file.length()==0)
 		{
 			System.out.println("Address-Book Empty No contacts to display");
-			mainMenu();
+			showOptions();
 			
 		}
 	    contact=new ArrayList<Contact>(Arrays.asList(mapper.readValue(file,Contact[].class)));
@@ -318,11 +491,16 @@ public class AddressBook
 	     System.out.print("ID: "+contact2.getId()+"  FIRSTNAME: "+contact2.getFirstName()+"  LASTNAME: "+contact2.getLastName()+
 	    		 "  CITY: "+contact2.getCity()+"  MOBILE: "+contact2.getMobileNumber()+"  ZIPCODE: "+contact2.getZipCode()+"\n");
 		}
+		}catch (Exception e) {
+			e.getMessage();
+		}
 	}
 	
 	/*Method to save address-book to a different file*/
-	public static void saveAddressBookAs() throws JsonGenerationException, JsonMappingException, IOException
+	public  void saveAddressBookAs() 
 	{
+		try
+		{
 		System.out.println("Enter file-name: ");
 		String newName=scanner.next();
 		if(currentAddressBook.equals(newName))
@@ -333,11 +511,14 @@ public class AddressBook
 			ObjectMapper map=new ObjectMapper();
 			map.writeValue(file, contact);
 		}
+		}catch (Exception e) {
+			e.getMessage();
+		}
 			
 	}
 	
 	/*Method to sort contacts of address-book by first-name*/
-	public static void sortByFirstName()
+	public  void sortByFirstName()
 	{
 		Comparator<Contact> compareByFname = (Contact o1, Contact o2) -> o1.getFirstName().compareTo( o2.getFirstName() );
 		 
@@ -352,7 +533,7 @@ public class AddressBook
 	}
 	
 	/*Method to sort contacts of address-book by zipCode*/
-	public static void sortByZipCode()
+	public  void sortByZipCode()
 	{
 		Comparator<Contact> compareByZip = (Contact o1, Contact o2) -> new Integer(o1.getZipCode()).compareTo(new Integer(o2.getZipCode()));
 		 
@@ -370,7 +551,9 @@ public class AddressBook
 	public static void main(String[] args) throws IOException
 	{
 		try {
-		mainMenu();
+			AddressBook address=new AddressBook();
+			address.mainMenu();
+		
 		}catch (Exception e) {
 		e.getMessage();
 		}

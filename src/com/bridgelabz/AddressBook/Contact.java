@@ -13,15 +13,15 @@ public class Contact {
 	@JsonProperty
 	private String city;
 	@JsonProperty
-	private int zipCode;
+	private String zipCode;
 	@JsonProperty
-	private long mobileNumber;
+	private String mobileNumber;
 	
 	public Contact()
 	{
 		
 	}
-	public Contact(int id,String firstName, String lastName, String city, int zipCode, long mobileNumber)
+	public Contact(int id,String firstName, String lastName, String city, String zipCode, String mobileNumber)
 	{
 		this.id=id;
 		this.firstName = firstName;
@@ -37,10 +37,10 @@ public class Contact {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public long getMobileNumber() {
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
-	public void setMobileNumber(long mobileNumber) {
+	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 	public String getFirstName() {
@@ -73,22 +73,22 @@ public class Contact {
 	}
 
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
 
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
 
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return mobileNumber;
 	}
 
 
-	public void setPhoneNumber(long mobileNumber) {
+	public void setPhoneNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
